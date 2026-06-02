@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SectionTitle from "../../components/section/SectionTitle";
 import { TBBPhotos } from "../../api/DefaultData";
 
@@ -8,7 +8,7 @@ function TBBSection() {
 
   const [isDragging, setIsDragging] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   const startX = useRef(0);
   const scrollStart = useRef(0);
@@ -82,16 +82,72 @@ function TBBSection() {
     updateActiveIndex();
   };
 
-  const openPhoto = (photo) => {
+  const openPhoto = (index) => {
     if (isDragging) return;
-    setSelectedPhoto(photo);
+    setSelectedIndex(index);
   };
 
   const closePhoto = () => {
-    setSelectedPhoto(null);
+    setSelectedIndex(null);
   };
 
+  const showPrevPhoto = (event) => {
+    event.stopPropagation();
+
+    setSelectedIndex((current) => {
+      if (current === null) return null;
+      return current === 0 ? TBBPhotos.length - 1 : current - 1;
+    });
+  };
+
+  const showNextPhoto = (event) => {
+    event.stopPropagation();
+
+    setSelectedIndex((current) => {
+      if (current === null) return null;
+      return current === TBBPhotos.length - 1 ? 0 : current + 1;
+    });
+  };
+
+  const showNextPhotoFromImage = (event) => {
+    showNextPhoto(event);
+  };
+
+  useEffect(() => {
+    if (selectedIndex === null) return;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closePhoto();
+        return;
+      }
+
+      if (event.key === "ArrowLeft") {
+        setSelectedIndex((current) => {
+          if (current === null) return null;
+          return current === 0 ? TBBPhotos.length - 1 : current - 1;
+        });
+        return;
+      }
+
+      if (event.key === "ArrowRight") {
+        setSelectedIndex((current) => {
+          if (current === null) return null;
+          return current === TBBPhotos.length - 1 ? 0 : current + 1;
+        });
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedIndex]);
+
   const dotCount = getMaxIndex() + 1;
+  const selectedPhoto =
+    selectedIndex !== null ? TBBPhotos[selectedIndex].image : null;
 
   return (
     <section ref={sectionRef} className="bg-gray-50 px-6 py-12">
@@ -120,10 +176,10 @@ function TBBSection() {
             isDragging ? "cursor-grabbing" : "cursor-grab"
           }`}
         >
-          {TBBPhotos.map((photo) => (
+          {TBBPhotos.map((photo, index) => (
             <div
               key={photo.id}
-              onClick={() => openPhoto(photo.image)}
+              onClick={() => openPhoto(index)}
               className="w-60 shrink-0 cursor-pointer overflow-hidden rounded-2xl bg-white shadow-md transition hover:-translate-y-1 hover:shadow-xl"
             >
               <img
@@ -169,18 +225,35 @@ function TBBSection() {
           <button
             type="button"
             onClick={closePhoto}
-            className="absolute right-6 top-6 text-4xl font-bold text-white transition hover:text-gray-300"
+            className="absolute right-6 top-6 z-20 text-4xl font-bold text-white transition hover:text-gray-300"
           >
             ×
           </button>
 
+          <div className="relative flex items-center justify-center">
+            <button
+              type="button"
+              onClick={showPrevPhoto}
+              className="absolute -left-16 top-1/2 z-20 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-6xl text-white transition hover:bg-white/25"
+            >
+              ‹
+            </button>
 
-          <img
-            src={selectedPhoto}
-            alt="TBB büyütülmüş görsel"
-            className="max-h-[85vh] max-w-[90vw] rounded-2xl object-contain shadow-2xl"
-            onClick={(event) => event.stopPropagation()}
-          />
+            <img
+              src={selectedPhoto}
+              alt="TBB büyütülmüş görsel"
+              className="max-h-[85vh] max-w-[90vw] cursor-pointer rounded-2xl object-contain shadow-2xl"
+              onClick={showNextPhotoFromImage}
+            />
+
+            <button
+              type="button"
+              onClick={showNextPhoto}
+              className="absolute -right-16 top-1/2 z-20 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-6xl text-white transition hover:bg-white/25"
+            >
+              ›
+            </button>
+          </div>
         </div>
       )}
     </section>
