@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import SectionTitle from "../../components/section/SectionTitle";
 import { TBBPhotos } from "../../api/DefaultData";
 
+
 function TBBSection() {
   const sectionRef = useRef(null);
   const carouselRef = useRef(null);
@@ -153,8 +154,30 @@ function TBBSection() {
     <section ref={sectionRef} className="bg-gray-50 px-6 py-12">
       <SectionTitle
         title="TBB'de Biz"
-        subtitle="Türkiye Belediyeler Birliği'nde Çıkan Haberler"
       />
+
+      {/* Tanıtım ve Kurumsal Kapasite Bilgi Bölümü */}
+      <div className="mx-auto mb-12 max-w-5xl px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start text-gray-700">
+          {/* Sol Sütun - TBB Öncelikli Çalışma Alanı */}
+          <div className="relative pl-6 border-l-2 border-blue-500">
+            <p className="text-base md:text-lg leading-relaxed font-light text-gray-600">
+              <span className="font-semibold text-gray-900">Belediyelerimizin kurumsal kapasitelerinin geliştirilmesi</span>, 
+              belediyeler arasında iş birliği ve koordinasyonun arttırılması ile karşılıklı öğrenme kültürünün yaygınlaştırılması, 
+              Türkiye Belediyeler Birliği’nin öncelikli çalışma alanları arasında yer almaktadır.
+            </p>
+          </div>
+
+          {/* Sağ Sütun - BELFOR ve Eşit İşyeri */}
+          <div className="relative pl-6 border-l-2 border-purple-500">
+            <p className="text-base md:text-lg leading-relaxed font-light text-gray-600">
+              Bu kapsamda düzenlenen <span className="font-semibold text-gray-900">Belediyecilik Forumu (BELFOR)</span>, 
+              farklı belediyelerin deneyim paylaşımında bulunmalarına ve iyi uygulama örneklerini birlikte değerlendirmelerine önemli katkılar sunmaktadır. 
+              Belediyecilik forumu (BELFOR)’nda Eşit İşyeri Projemiz <span className="font-semibold text-purple-600">100’den fazla belediyeye</span> anlatılmış ve tecrübelerimiz paylaşılmıştır.
+            </p>
+          </div>
+        </div>
+      </div>
 
       <div className="relative mx-auto mt-10 w-full max-w-[1600px]">
         <button

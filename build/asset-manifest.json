@@ -1,11 +1,12 @@
 {
   "files": {
-    "main.css": "/static/css/main.25403370.css",
-    "main.js": "/static/js/main.4359eb9d.js",
+    "main.css": "/static/css/main.1b9fa4d0.css",
+    "main.js": "/static/js/main.1f339c33.js",
     "static/js/453.b23e4266.chunk.js": "/static/js/453.b23e4266.chunk.js",
     "static/media/esitIsyeriVideo.mp4": "/static/media/esitIsyeriVideo.fd1aaaa26c7f2a9c00f2.mp4",
     "static/media/Tv5.mp4": "/static/media/Tv5.18cd6b365715b0e774ed.mp4",
     "static/media/HalkTv.mp4": "/static/media/HalkTv.220f86422941ca44bab9.mp4",
+    "static/media/45lik.mp4": "/static/media/45lik.a57ff9c19a04aa567a8f.mp4",
     "static/media/FlashTv.mp4": "/static/media/FlashTv.c0e06c177ec28d7f6af9.mp4",
     "static/media/KRT.mp4": "/static/media/KRT.3c0a5d5639a171b5a355.mp4",
     "static/media/HalkTv2.mp4": "/static/media/HalkTv2.3c7bc09a48809047b93c.mp4",
@@ -15,7 +16,13 @@
     "static/media/basindabiz.mp4": "/static/media/basindabiz.f5a12330003cc759715c.mp4",
     "static/media/2.jpg": "/static/media/2.215331043741097a5a79.jpg",
     "static/media/HasanAkgun.png": "/static/media/HasanAkgun.fe7595ab94fee864a32b.png",
+    "static/media/photo5.jpeg": "/static/media/photo5.571c7a517c550231fb2d.jpeg",
+    "static/media/photo2.jpeg": "/static/media/photo2.b1932444b2325954b9d5.jpeg",
+    "static/media/photo4.jpeg": "/static/media/photo4.344c02a589e8fc4a32af.jpeg",
     "static/media/tescil.png": "/static/media/tescil.7f57c53cc5bd6c55c9d0.png",
+    "static/media/photo1.jpeg": "/static/media/photo1.89959d0bc6a572071842.jpeg",
+    "static/media/photo6.jpeg": "/static/media/photo6.8da6202a322243084cfe.jpeg",
+    "static/media/photo3.jpeg": "/static/media/photo3.01227afee8de8067a1d4.jpeg",
     "static/media/3.jpg": "/static/media/3.7ce242e951e97e7b96b3.jpg",
     "static/media/4.jpg": "/static/media/4.3b28e7eb45c94a3c3d82.jpg",
     "static/media/6.jpg": "/static/media/6.6ddeebfaccc6c6475582.jpg",
@@ -28,12 +35,12 @@
     "static/media/esitIsyeriLogo.png": "/static/media/esitIsyeriLogo.8bbb851041a71dbed21c.png",
     "static/media/bcekmecebldlogo.png": "/static/media/bcekmecebldlogo.60e322cfc15d2e131dd1.png",
     "index.html": "/index.html",
-    "main.25403370.css.map": "/static/css/main.25403370.css.map",
-    "main.4359eb9d.js.map": "/static/js/main.4359eb9d.js.map",
+    "main.1b9fa4d0.css.map": "/static/css/main.1b9fa4d0.css.map",
+    "main.1f339c33.js.map": "/static/js/main.1f339c33.js.map",
     "453.b23e4266.chunk.js.map": "/static/js/453.b23e4266.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.25403370.css",
-    "static/js/main.4359eb9d.js"
+    "static/css/main.1b9fa4d0.css",
+    "static/js/main.1f339c33.js"
   ]
 }

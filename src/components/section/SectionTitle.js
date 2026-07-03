@@ -11,9 +11,11 @@ const SectionTitle = ({ title, className, subtitle }) => {
                          rounded -translate-x-1/2"></span>
       </h1>
 
-      <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mt-6">
-        {subtitle}
-      </p>
+      {subtitle && (
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mt-6">
+          {subtitle}
+        </p>
+      )}
     </div>
   );
 };
