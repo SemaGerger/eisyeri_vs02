@@ -8,6 +8,10 @@ import Tele1 from "../assets/videos/press/Tele1.mp4";
 import Tv5 from "../assets/videos/press/Tv5.mp4";
 import video45lik from "../assets/videos/press/45lik.mp4";
 
+import pressPhoto1 from "../assets/images/press/esitisyeri_press1.jpeg";
+import pressPhoto2 from "../assets/images/press/esitisyeri_press2.jpeg";
+import pressPhoto3 from "../assets/images/press/esitisyeri_press3.jpeg";
+
 import foto1 from "../assets/images/partners/1.jpeg";
 import foto2 from "../assets/images/partners/2.jpg";
 import foto3 from "../assets/images/partners/3.jpg";
@@ -81,6 +85,12 @@ export const pressData = [
   { id: 6, title: "Halk TV 2", video: HalkTV},
   { id: 7, title: "FlashTV", video: FlashTV},
   { id: 8, title: "video45lik", video: video45lik},
+];
+
+export const pressPhotos = [
+  { id: 1, title: "Basında Eşit İşyeri Haber 1", image: pressPhoto1 },
+  { id: 2, title: "Basında Eşit İşyeri Haber 2", image: pressPhoto2 },
+  { id: 3, title: "Basında Eşit İşyeri Haber 3", image: pressPhoto3 },
 ];
 
 export const aboutData = [

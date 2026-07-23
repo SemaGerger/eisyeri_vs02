@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.1b9fa4d0.css",
-    "main.js": "/static/js/main.1f339c33.js",
+    "main.css": "/static/css/main.7526681b.css",
+    "main.js": "/static/js/main.459b7566.js",
     "static/js/453.b23e4266.chunk.js": "/static/js/453.b23e4266.chunk.js",
     "static/media/esitIsyeriVideo.mp4": "/static/media/esitIsyeriVideo.fd1aaaa26c7f2a9c00f2.mp4",
     "static/media/Tv5.mp4": "/static/media/Tv5.18cd6b365715b0e774ed.mp4",
@@ -14,6 +14,8 @@
     "static/media/Image3.jpg": "/static/media/Image3.a34471810cdcabe4a497.jpg",
     "static/media/Tele1.mp4": "/static/media/Tele1.fa1ea5cebd088af9c513.mp4",
     "static/media/basindabiz.mp4": "/static/media/basindabiz.f5a12330003cc759715c.mp4",
+    "static/media/esitisyeri_press1.jpeg": "/static/media/esitisyeri_press1.e6d533e69673a13612a9.jpeg",
+    "static/media/esitisyeri_press2.jpeg": "/static/media/esitisyeri_press2.08b720d1f104d58e6b3a.jpeg",
     "static/media/2.jpg": "/static/media/2.215331043741097a5a79.jpg",
     "static/media/HasanAkgun.png": "/static/media/HasanAkgun.fe7595ab94fee864a32b.png",
     "static/media/photo5.jpeg": "/static/media/photo5.571c7a517c550231fb2d.jpeg",
@@ -25,6 +27,7 @@
     "static/media/photo3.jpeg": "/static/media/photo3.01227afee8de8067a1d4.jpeg",
     "static/media/3.jpg": "/static/media/3.7ce242e951e97e7b96b3.jpg",
     "static/media/4.jpg": "/static/media/4.3b28e7eb45c94a3c3d82.jpg",
+    "static/media/esitisyeri_press3.jpeg": "/static/media/esitisyeri_press3.87654800cf7175439a49.jpeg",
     "static/media/6.jpg": "/static/media/6.6ddeebfaccc6c6475582.jpg",
     "static/media/1.jpeg": "/static/media/1.f53e07d116577bd44d5f.jpeg",
     "static/media/5.jpg": "/static/media/5.fc873605f8930047e1ed.jpg",
@@ -35,12 +38,12 @@
     "static/media/esitIsyeriLogo.png": "/static/media/esitIsyeriLogo.8bbb851041a71dbed21c.png",
     "static/media/bcekmecebldlogo.png": "/static/media/bcekmecebldlogo.60e322cfc15d2e131dd1.png",
     "index.html": "/index.html",
-    "main.1b9fa4d0.css.map": "/static/css/main.1b9fa4d0.css.map",
-    "main.1f339c33.js.map": "/static/js/main.1f339c33.js.map",
+    "main.7526681b.css.map": "/static/css/main.7526681b.css.map",
+    "main.459b7566.js.map": "/static/js/main.459b7566.js.map",
     "453.b23e4266.chunk.js.map": "/static/js/453.b23e4266.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1b9fa4d0.css",
-    "static/js/main.1f339c33.js"
+    "static/css/main.7526681b.css",
+    "static/js/main.459b7566.js"
   ]
 }
