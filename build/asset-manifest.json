@@ -1,7 +1,12 @@
 {
   "files": {
+<<<<<<< Updated upstream
     "main.css": "/static/css/main.7526681b.css",
     "main.js": "/static/js/main.726eb263.js",
+=======
+    "main.css": "/static/css/main.0830b113.css",
+    "main.js": "/static/js/main.4f29eba9.js",
+>>>>>>> Stashed changes
     "static/js/453.b23e4266.chunk.js": "/static/js/453.b23e4266.chunk.js",
     "static/media/Tv5.mp4": "/static/media/Tv5.18cd6b365715b0e774ed.mp4",
     "static/media/HalkTv.mp4": "/static/media/HalkTv.220f86422941ca44bab9.mp4",
@@ -38,6 +43,7 @@
     "static/media/esitIsyeriLogo.png": "/static/media/esitIsyeriLogo.8bbb851041a71dbed21c.png",
     "static/media/bcekmecebldlogo.png": "/static/media/bcekmecebldlogo.60e322cfc15d2e131dd1.png",
     "index.html": "/index.html",
+<<<<<<< Updated upstream
     "main.7526681b.css.map": "/static/css/main.7526681b.css.map",
     "main.726eb263.js.map": "/static/js/main.726eb263.js.map",
     "453.b23e4266.chunk.js.map": "/static/js/453.b23e4266.chunk.js.map"
@@ -45,5 +51,14 @@
   "entrypoints": [
     "static/css/main.7526681b.css",
     "static/js/main.726eb263.js"
+=======
+    "main.0830b113.css.map": "/static/css/main.0830b113.css.map",
+    "main.4f29eba9.js.map": "/static/js/main.4f29eba9.js.map",
+    "453.b23e4266.chunk.js.map": "/static/js/453.b23e4266.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0830b113.css",
+    "static/js/main.4f29eba9.js"
+>>>>>>> Stashed changes
   ]
 }
