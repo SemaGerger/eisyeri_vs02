@@ -26,21 +26,22 @@ const Contact = () => {
         />
 
         {/* Map & Contact Info */}
-        <div className="grid lg:grid-cols-2 gap-12 mb-16">
-          <div className="rounded-2xl overflow-hidden shadow-xl h-96">
+        <div className="grid lg:grid-cols-2 gap-12 mb-16 items-stretch">
+          <div className="rounded-2xl overflow-hidden shadow-xl h-full min-h-[380px] flex">
             <iframe
               title="Büyükçekmece Belediyesi Haritası"
               src="https://maps.google.com/maps?q=41.02115252472539,28.5852208036723&hl=tr&z=16&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0 }}
+              className="w-full h-full flex-1"
               allowFullScreen
               loading="lazy"
             />
           </div>
 
           {/* Contact Details */}
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl shadow-lg">
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl shadow-lg flex flex-col justify-center">
             <h2 className="text-3xl font-semibold text-gray-800 mb-8 flex items-center">
               <Users className="mr-3 text-blue-600" size={32} />
               {t("contact.infoTitle", "İletişim Bilgileri")}
