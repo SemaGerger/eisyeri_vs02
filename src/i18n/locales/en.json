@@ -8,40 +8,40 @@
     "logo": "Our Logo"
   },
   "hero": {
-    "title": "Equal Workplace",
+    "title": "Eşit İşyeri",
     "highlight": "Project",
     "subtitle": "Büyükçekmece Municipality Directorate of Licensing and Inspection",
     "cta1": "Register Your Business",
     "cta2": "Join Bücep Group"
   },
   "sections": {
-    "partnersTitle": "Equal Workplaces",
-    "partnersSubtitle": "Workplaces embracing principles of equality, diversity, and inclusion",
-    "partnersNotFound": "No companies found...",
+    "partnersTitle": "Eşit İşyerleri",
+    "partnersSubtitle": "Businesses embracing principles of equality, diversity, and inclusion",
+    "partnersNotFound": "No businesses found...",
     "pressTitle": "Press & Media",
-    "pressSubtitle": "News and coverage about Equal Workplace in the press",
+    "pressSubtitle": "News and coverage about Eşit İşyeri in the press",
     "tbbTitle": "OUR WORK AT TBB",
     "tbbSubtitle": "Union of Municipalities of Türkiye and Project Activities",
     "tbbText1": "<0>Strengthening the institutional capacities of municipalities</0>, enhancing cooperation and coordination among local governments, and promoting a culture of mutual learning are among the key priority areas of the Union of Municipalities of Türkiye (TBB).",
-    "tbbText2": "Within this framework, the <0>Municipal Forum (BELFOR)</0> provides an important platform for municipalities to share their experiences and jointly evaluate examples of good practice. At the Municipal Forum (BELFOR), we introduced our Equal Workplace Project to <1>more than 100 municipalities</1> and shared our experiences and practices with participating local governments."
+    "tbbText2": "Within this framework, the <0>Municipal Forum (BELFOR)</0> provides an important platform for municipalities to share their experiences and jointly evaluate examples of good practice. At the Municipal Forum (BELFOR), we introduced our Eşit İşyeri Project to <1>more than 100 municipalities</1> and shared our experiences and practices with participating local governments."
   },
   "about": {
     "title": "ABOUT US",
-    "subtitle": "A comprehensive social initiative designed to promote the principles of equality, diversity, and inclusion in the workplace.",
-    "whatTitle": "What is the Equal Workplace Project?",
-    "whatText": "As Büyükçekmece Municipality, we launched the Equal Workplace Project to raise awareness of gender equality, increase the number of women entrepreneurs, and support women in taking an active role in society as modern and empowered individuals.",
+    "subtitle": "A comprehensive social initiative designed to promote the principles of equality, diversity, and inclusion in businesses.",
+    "whatTitle": "What is the Eşit İşyeri Project?",
+    "whatText": "As Büyükçekmece Municipality, we launched the Eşit İşyeri Project to raise awareness of gender equality, increase the number of women entrepreneurs, and support women in taking an active role in society as modern and empowered individuals.",
     "whyTitle": "Why Should I Apply?",
-    "whyText": "Businesses awarded the Equal Workplace Certificate will benefit from:\n· A 50% discount on business license fees\n· A 50% discount on signage and advertising fees",
+    "whyText": "Businesses awarded the Eşit İşyeri Certificate will benefit from:\n· A 50% discount on business license fees\n· A 50% discount on signage and advertising fees",
     "conditionTitle": "Application Requirements",
-    "conditionText": "· At least 50% of the employees at the workplace must be women.\n· Women and men performing equal work must receive equal pay.\n· The workplace must employ at least two employees, excluding the employer(s).\n· Businesses providing services exclusively to women are excluded from the scope of this project. Eligibility in such cases will be assessed by the Equal Workplace Commission.\n· Businesses awarded the Equal Workplace Certificate must continue to meet the above requirements. If these conditions are no longer fulfilled, the Equal Workplace Commission may revoke the certificate and the benefits granted under the project."
+    "conditionText": "· At least 50% of the employees at the business must be women.\n· Women and men performing equal work must receive equal pay.\n· The business must employ at least two employees, excluding the employer(s).\n· Businesses providing services exclusively to women are excluded from the scope of this project. Eligibility in such cases will be assessed by the Eşit İşyeri Commission.\n· Businesses awarded the Eşit İşyeri Certificate must continue to meet the above requirements. If these conditions are no longer fulfilled, the Eşit İşyeri Commission may revoke the certificate and the benefits granted under the project."
   },
   "president": {
     "title": "MAYOR’S MESSAGE",
-    "text": "The aim of our Equal Workplace Project is to raise awareness of gender equality across our city, increase the number of women entrepreneurs, and support women in taking active roles at every level of professional life—from production to management—as modern, empowered individuals.\n\nThrough this project, we place particular importance on promoting equality between women and men in all areas of social life and in the workplace, while fostering and maintaining a fair and balanced working environment."
+    "text": "The aim of our Eşit İşyeri Project is to raise awareness of gender equality across our city, increase the number of women entrepreneurs, and support women in taking active roles at every level of professional life—from production to management—as modern, empowered individuals.\n\nThrough this project, we place particular importance on promoting equality between women and men in all areas of social life and in the workplace, while fostering and maintaining a fair and balanced working environment."
   },
   "brand": {
     "title": "Our Logo & Brand Identity",
-    "description": "The logo of our Equal Workplace project represents principles of transparency, equality, and trust. Our logo and trademark registration certificate are shown below."
+    "description": "The logo of our Eşit İşyeri project represents principles of transparency, equality, and trust. Our logo and trademark registration certificate are shown below."
   },
   "contact": {
     "title": "Contact Us",
@@ -59,7 +59,7 @@
     "formNotice": "You will be redirected to an external page to submit the form."
   },
   "partnersPage": {
-    "title": "Equal Workplaces",
+    "title": "Eşit İşyerleri",
     "subtitle": "Discover businesses that embrace equality, diversity, and inclusion",
     "emptyMessage": "No data found yet."
   },
@@ -77,9 +77,9 @@
     "notFound": "Company not found..."
   },
   "partnerList": {
-    "otherPartners": "Other Workplaces",
-    "otherSubtitle": "Discover similar certified workplaces",
-    "emptyMessage": "No workplaces found to display",
+    "otherPartners": "Other Eşit İşyerleri",
+    "otherSubtitle": "Discover similar certified Eşit İşyerleri",
+    "emptyMessage": "No businesses found to display",
     "viewAll": "View All",
     "authorized": "Authorized",
     "type": "Type"
