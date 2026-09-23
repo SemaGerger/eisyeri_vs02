@@ -37,12 +37,12 @@ import logoYazisi from "../assets/logos/esitisyeri-yazisi-logo.png";
 const siteConfig = {
 
   navLinks: [
-    { name: "Ana Sayfa", to: "/" },
-    { name: "Başkan Hakkında", to: "/baskan-hakkinda" },
-    { name: "Eşit İşyerleri", to: "/esit-isyerleri" },
-    { name: "Hakkımızda", to: "/hakkimizda" },
-    { name: "Bize Ulaşın", to: "/iletisim" },
-    { name: "Logomuz", to: "/logomuz" },
+    { name: "Ana Sayfa", to: "/", key: "home" },
+    { name: "Başkan Hakkında", to: "/baskan-hakkinda", key: "aboutPresident" },
+    { name: "Eşit İşyerleri", to: "/esit-isyerleri", key: "partners" },
+    { name: "Hakkımızda", to: "/hakkimizda", key: "about" },
+    { name: "Bize Ulaşın", to: "/iletisim", key: "contact" },
+    { name: "Logomuz", to: "/logomuz", key: "logo" },
   ],
 
 
@@ -206,9 +206,9 @@ const siteConfig = {
 
 
   servicesData: {
-    top: { id: 1, title: "yüzde 50", description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. " },
-    middle: { id: 2, title: "destek", description: "Esse rem ducimus excepturi fuga quos libero voluptate neque." },
-    buttom: { id: 3, title: "eşit işyeri", description: " Ut incidunt, iusto libero, eaque ipsamg" },
+    top: { id: 1, title: "%50 Harç İndirimi", description: "Ruhsat, ilan ve reklam ücretlerinde %50 indirim avantajından yararlanın." },
+    middle: { id: 2, title: "Kadın İstihdamına Destek", description: "Kadın girişimcileri ve çalışanları güçlendirerek eşitliği teşvik edin." },
+    buttom: { id: 3, title: "Eşit İşyeri Tescili", description: "Toplumsal cinsiyet eşitliğini benimseyen öncü işletmeler arasında yerinizi alın." },
   },
 
 

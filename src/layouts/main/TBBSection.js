@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { useTranslation, Trans } from "react-i18next";
+import { ZoomIn } from "lucide-react";
 import SectionTitle from "../../components/section/SectionTitle";
 import { TBBPhotos } from "../../api/DefaultData";
 
 
 function TBBSection() {
+  const { t } = useTranslation();
   const sectionRef = useRef(null);
   const carouselRef = useRef(null);
 
@@ -117,6 +121,9 @@ function TBBSection() {
   useEffect(() => {
     if (selectedIndex === null) return;
 
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         closePhoto();
@@ -142,6 +149,7 @@ function TBBSection() {
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
+      document.body.style.overflow = originalOverflow;
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [selectedIndex]);
@@ -153,7 +161,8 @@ function TBBSection() {
   return (
     <section ref={sectionRef} className="bg-gray-50 px-6 py-12">
       <SectionTitle
-        title="TBB'de Biz"
+        title={t("sections.tbbTitle", "TBB'de Biz")}
+        subtitle={t("sections.tbbSubtitle", "Türkiye Belediyeler Birliği ve Proje Etkinlikleri")}
       />
 
       {/* Tanıtım ve Kurumsal Kapasite Bilgi Bölümü */}
@@ -162,18 +171,23 @@ function TBBSection() {
           {/* Sol Sütun - TBB Öncelikli Çalışma Alanı */}
           <div className="relative pl-6 border-l-2 border-blue-500">
             <p className="text-base md:text-lg leading-relaxed font-light text-gray-600">
-              <span className="font-semibold text-gray-900">Belediyelerimizin kurumsal kapasitelerinin geliştirilmesi</span>, 
-              belediyeler arasında iş birliği ve koordinasyonun arttırılması ile karşılıklı öğrenme kültürünün yaygınlaştırılması, 
-              Türkiye Belediyeler Birliği’nin öncelikli çalışma alanları arasında yer almaktadır.
+              <Trans
+                i18nKey="sections.tbbText1"
+                components={[<span className="font-semibold text-gray-900" />]}
+              />
             </p>
           </div>
 
           {/* Sağ Sütun - BELFOR ve Eşit İşyeri */}
           <div className="relative pl-6 border-l-2 border-purple-500">
             <p className="text-base md:text-lg leading-relaxed font-light text-gray-600">
-              Bu kapsamda düzenlenen <span className="font-semibold text-gray-900">Belediyecilik Forumu (BELFOR)</span>, 
-              farklı belediyelerin deneyim paylaşımında bulunmalarına ve iyi uygulama örneklerini birlikte değerlendirmelerine önemli katkılar sunmaktadır. 
-              Belediyecilik forumu (BELFOR)’nda Eşit İşyeri Projemiz <span className="font-semibold text-purple-600">100’den fazla belediyeye</span> anlatılmış ve tecrübelerimiz paylaşılmıştır.
+              <Trans
+                i18nKey="sections.tbbText2"
+                components={[
+                  <span className="font-semibold text-gray-900" />,
+                  <span className="font-semibold text-purple-600" />,
+                ]}
+              />
             </p>
           </div>
         </div>
@@ -203,15 +217,18 @@ function TBBSection() {
             <div
               key={photo.id}
               onClick={() => openPhoto(index)}
-              className="w-60 shrink-0 cursor-pointer overflow-hidden rounded-2xl bg-white shadow-md transition hover:-translate-y-1 hover:shadow-xl"
+              className="group relative w-60 shrink-0 cursor-pointer overflow-hidden rounded-2xl bg-white shadow-md transition hover:-translate-y-1 hover:shadow-xl"
             >
               <img
                 src={photo.image}
                 alt={`TBB'de Biz ${photo.id}`}
                 draggable="false"
                 loading="lazy"
-                className="h-[360px] w-full object-cover object-center"
+                className="h-[360px] w-full object-cover object-center transition duration-500 group-hover:scale-105"
               />
+              <div className="absolute bottom-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white shadow-md backdrop-blur-sm transition duration-300 group-hover:scale-110 group-hover:bg-blue-600">
+                <ZoomIn size={18} />
+              </div>
             </div>
           ))}
         </div>
@@ -240,45 +257,50 @@ function TBBSection() {
         </div>
       </div>
 
-      {selectedPhoto && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 px-4"
-          onClick={closePhoto}
-        >
-          <button
-            type="button"
+      {selectedPhoto &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-4"
             onClick={closePhoto}
-            className="absolute right-6 top-6 z-20 text-4xl font-bold text-white transition hover:text-gray-300"
           >
-            ×
-          </button>
-
-          <div className="relative flex items-center justify-center">
             <button
               type="button"
-              onClick={showPrevPhoto}
-              className="absolute -left-16 top-1/2 z-20 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-6xl text-white transition hover:bg-white/25"
+              onClick={closePhoto}
+              aria-label="Kapat"
+              className="absolute right-6 top-6 z-20 text-4xl font-bold text-white transition hover:text-gray-300"
             >
-              ‹
+              ×
             </button>
 
-            <img
-              src={selectedPhoto}
-              alt="TBB büyütülmüş görsel"
-              className="max-h-[85vh] max-w-[90vw] cursor-pointer rounded-2xl object-contain shadow-2xl"
-              onClick={showNextPhotoFromImage}
-            />
+            <div className="relative flex items-center justify-center">
+              <button
+                type="button"
+                onClick={showPrevPhoto}
+                aria-label="Önceki"
+                className="absolute -left-16 top-1/2 z-20 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-6xl text-white transition hover:bg-white/25"
+              >
+                ‹
+              </button>
 
-            <button
-              type="button"
-              onClick={showNextPhoto}
-              className="absolute -right-16 top-1/2 z-20 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-6xl text-white transition hover:bg-white/25"
-            >
-              ›
-            </button>
-          </div>
-        </div>
-      )}
+              <img
+                src={selectedPhoto}
+                alt="TBB büyütülmüş görsel"
+                className="max-h-[85vh] max-w-[90vw] cursor-pointer rounded-2xl object-contain shadow-2xl"
+                onClick={showNextPhotoFromImage}
+              />
+
+              <button
+                type="button"
+                onClick={showNextPhoto}
+                aria-label="Sonraki"
+                className="absolute -right-16 top-1/2 z-20 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-6xl text-white transition hover:bg-white/25"
+              >
+                ›
+              </button>
+            </div>
+          </div>,
+          document.body
+        )}
     </section>
   );
 }

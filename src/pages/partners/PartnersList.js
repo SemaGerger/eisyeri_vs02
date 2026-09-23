@@ -1,15 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Users, ArrowRight } from 'lucide-react';
-
 import siteConfig from '../../config/siteConfig';
 import PartnerListCard from './PartnerListCard';
 
 const PartnersList = ({ partners }) => {
-  
+  const { t } = useTranslation();
 
-  const { title, subtitle, emptyMessage, viewAllText, viewAllLink } = 
-    siteConfig.partners.list;
+  const title = t("partnerList.otherPartners", siteConfig.partners.list.title);
+  const subtitle = t("partnerList.otherSubtitle", siteConfig.partners.list.subtitle);
+  const emptyMessage = t("partnerList.emptyMessage", siteConfig.partners.list.emptyMessage);
+  const viewAllText = t("partnerList.viewAll", siteConfig.partners.list.viewAllText);
+  const viewAllLink = siteConfig.partners.list.viewAllLink;
 
   if (!partners || partners.length === 0) {
     return (

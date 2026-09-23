@@ -33,7 +33,7 @@ export default function App() {
         <Route path="/logomuz" element={<Logomuz />} />
         <Route path="/form" element={<FormPage />} />
 
-        <Route path="/test" component={TestPage} />
+        <Route path="/test" element={<TestPage />} />
 
 
       </Routes>

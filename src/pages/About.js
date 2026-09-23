@@ -1,20 +1,40 @@
 import React from "react";
-
+import { useTranslation } from "react-i18next";
 import siteConfig from "../config/siteConfig";
 import Layout from "../layouts/Layout";
 import PageTitle from "../components/pageCards/PageTitle";
 
 const About = () => {
-  // Object to array
-  const sections = Object.values(siteConfig.aboutData);
+  const { t } = useTranslation();
+
+  const sections = [
+    {
+      id: 1,
+      title: t("about.whatTitle", siteConfig.aboutData.what.title),
+      text: t("about.whatText", siteConfig.aboutData.what.text),
+      image: siteConfig.aboutData.what.image,
+    },
+    {
+      id: 2,
+      title: t("about.whyTitle", siteConfig.aboutData.why.title),
+      text: t("about.whyText", siteConfig.aboutData.why.text),
+      image: siteConfig.aboutData.why.image,
+    },
+    {
+      id: 3,
+      title: t("about.conditionTitle", siteConfig.aboutData.condition.title),
+      text: t("about.conditionText", siteConfig.aboutData.condition.text),
+      image: siteConfig.aboutData.condition.image,
+    },
+  ];
 
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 py-16 mt-16">
         {/* Title */}
         <PageTitle 
-          title="Eşit İşyerleri Projesi"
-          subtitle="İşyerlerinde eşitlik, çeşitlilik ve kapsayıcılık ilkelerini yaygınlaştırmak için tasarlanmış kapsamlı bir sosyal girişim"
+          title={t("about.title", "Eşit İşyerleri Projesi")}
+          subtitle={t("about.subtitle", "İşyerlerinde eşitlik, çeşitlilik ve kapsayıcılık ilkelerini yaygınlaştırmak için tasarlanmış kapsamlı bir sosyal girişim")}
         />
 
         {/* Content */}

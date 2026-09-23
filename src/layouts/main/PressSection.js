@@ -1,8 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
+import { ZoomIn } from "lucide-react";
 import { pressData, pressPhotos } from "../../api/DefaultData";
 import SectionTitle from "../../components/section/SectionTitle";
 
 const PressSection = () => {
+  const { t } = useTranslation();
   const sectionRef = useRef(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedMedia, setSelectedMedia] = useState(null); // { type: 'video'|'image', src: string }
@@ -42,8 +46,8 @@ const PressSection = () => {
       className="flex translate-y-8 flex-col items-center justify-center bg-gray-50 px-4 py-12 opacity-0 transition-all duration-700 sm:px-6 lg:px-2"
     >
       <SectionTitle
-        title="Basında Biz"
-        subtitle="Basında Eşit İşyeri ile ilgili çıkan haberler"
+        title={t("sections.pressTitle", "Basında Biz")}
+        subtitle={t("sections.pressSubtitle", "Basında Eşit İşyeri ile ilgili çıkan haberler")}
       />
 
       <div className="w-full max-w-7xl">
@@ -153,7 +157,7 @@ const PressPhotoCard = ({
   return (
     <div
       onClick={onClick}
-      className={`group flex h-full cursor-pointer flex-col overflow-hidden rounded-lg bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl ${className}`}
+      className={`group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-lg bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl ${className}`}
     >
       <div className={`relative overflow-hidden bg-gray-100 ${mediaClassName}`}>
         <img
@@ -162,10 +166,9 @@ const PressPhotoCard = ({
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
         />
 
-        <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition duration-300 group-hover:opacity-100">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-black/60 text-lg text-white shadow-lg">
-            🔍
-          </div>
+        {/* Büyüteç / Yakınlaştırma İkonu - Sağda Açık/Görünür */}
+        <div className="absolute bottom-3 right-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white shadow-md backdrop-blur-sm transition duration-300 group-hover:scale-110 group-hover:bg-blue-600">
+          <ZoomIn size={20} />
         </div>
       </div>
     </div>
@@ -188,21 +191,24 @@ const ModalVideo = ({ src, onClose }) => {
       if (event.key === "Escape") onClose();
     };
 
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
       if (videoEl) videoEl.pause();
+      document.body.style.overflow = originalOverflow;
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [src, onClose]);
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-4"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-3xl rounded-lg bg-black p-4"
+        className="relative w-full max-w-4xl rounded-lg bg-black p-4 shadow-2xl"
         onClick={(event) => event.stopPropagation()}
       >
         <button
@@ -219,10 +225,11 @@ const ModalVideo = ({ src, onClose }) => {
           src={src}
           controls
           autoPlay
-          className="max-h-[80vh] w-full rounded shadow-lg"
+          className="max-h-[80vh] w-full rounded shadow-lg object-contain"
         />
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
@@ -232,20 +239,23 @@ const ModalImage = ({ src, onClose }) => {
       if (event.key === "Escape") onClose();
     };
 
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
+      document.body.style.overflow = originalOverflow;
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [onClose]);
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-4"
       onClick={onClose}
     >
       <div
-        className="relative max-h-[90vh] max-w-5xl overflow-hidden rounded-lg bg-black p-2"
+        className="relative flex max-h-[90vh] max-w-5xl items-center justify-center overflow-hidden rounded-lg bg-black/90 p-2 shadow-2xl"
         onClick={(event) => event.stopPropagation()}
       >
         <button
@@ -260,10 +270,11 @@ const ModalImage = ({ src, onClose }) => {
         <img
           src={src}
           alt="Basında Biz Görseli"
-          className="max-h-[85vh] w-auto max-w-full rounded object-contain"
+          className="max-h-[85vh] max-w-[85vw] w-auto h-auto rounded object-contain"
         />
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

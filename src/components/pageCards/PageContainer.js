@@ -1,20 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import PageCard from "../pageCards/PageCard";
 import SampleImage from "../../assets/logos/esitisyeri-kalp-logo.png";
-import { Link } from "react-router-dom";
-
 
 const PageContainer = ({ partners }) => {
-
-
+  const { t } = useTranslation();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
       {partners.map((partner, index) => {
         const cells = partner.Cells || [];
-        const name = cells[2]?.DisplayText || "İsim yok";
-        const yetkili = cells[3]?.DisplayText || "Yetkili yok";
-        const faaliyet = cells[4]?.DisplayText || "Faaliyet türü yok";
+        const name = cells[2]?.DisplayText || t("defaultTexts.noName", "İsim yok");
+        const yetkili = cells[3]?.DisplayText || t("defaultTexts.noContact", "Yetkili yok");
+        const faaliyet = cells[4]?.DisplayText || t("defaultTexts.noActivity", "Faaliyet türü yok");
 
         let image = SampleImage;
         try {
@@ -34,10 +33,13 @@ const PageContainer = ({ partners }) => {
         if (!partners) {
           return (
             <div className="flex justify-center items-center h-64 m-16">
-              <p text-gray-500 text-lg>Yükleniyor...</p>
+              <p className="text-gray-500 text-lg">{t("status.loading", "Yükleniyor...")}</p>
             </div>
           );
         }
+
+        const authorizedLabel = t("partnerList.authorized", "Yetkili");
+        const typeLabel = t("partnerList.type", "Tür");
 
         return (
           <Link
@@ -50,7 +52,7 @@ const PageContainer = ({ partners }) => {
               id={objectId}
               name={name}
               image={image}
-              extraInfo={`Yetkili: ${yetkili} | Tür: ${faaliyet}`}
+              extraInfo={`${authorizedLabel}: ${yetkili} | ${typeLabel}: ${faaliyet}`}
             />
           </Link>
         );

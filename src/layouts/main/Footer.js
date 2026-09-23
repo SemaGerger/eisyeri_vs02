@@ -1,9 +1,12 @@
 import { MapPin, Phone, Facebook, Twitter, Instagram } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import logoWhite from "../../assets/logos/esitisyeri-white.png";
 import siteConfig from "../../config/siteConfig";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="bg-gray-900 text-gray-200 ">
       
@@ -23,7 +26,7 @@ export default function Footer() {
                   rel="noreferrer"
                   className="hover:underline"
                 >
-                  {siteConfig.contact.address}
+                  {t("contact.address", siteConfig.contact.address)}
                 </a>
               </li>
               <li className="flex items-center space-x-3">
@@ -38,7 +41,7 @@ export default function Footer() {
           {/* Navigation */}
           <div>
             <h3 className="text-lg mb-2 border-b-4 border-blue-400 inline-block pb-1">
-              Ruhsat ve Denetim Müdürlüğü
+              {t("footer.department", "Ruhsat ve Denetim Müdürlüğü")}
             </h3>
             <ul className="space-y-2">
               <li>
@@ -48,7 +51,7 @@ export default function Footer() {
                   rel="noreferrer"
                   className="hover:text-blue-400"
                 >
-                  {siteConfig.belediyeName}
+                  {t("footer.municipality", siteConfig.belediyeName)}
                 </a>
               </li>
               <li>
@@ -58,14 +61,14 @@ export default function Footer() {
                   rel="noreferrer"
                   className="hover:text-blue-400"
                 >
-                  E-Belediye
+                  {t("footer.eMunicipality", "E-Belediye")}
                 </a>
               </li>
               <li>
-                <Link to="/iletisim" className="hover:text-blue-400">Bize Ulaşın</Link>
+                <Link to="/iletisim" className="hover:text-blue-400">{t("nav.contact", "Bize Ulaşın")}</Link>
               </li>
               <li>
-                <Link to="/hakkimizda" className="hover:text-blue-400">Hakkkımızda</Link>
+                <Link to="/hakkimizda" className="hover:text-blue-400">{t("nav.about", "Hakkımızda")}</Link>
               </li>
             </ul>
           </div>
@@ -73,7 +76,7 @@ export default function Footer() {
           {/* Social m. */}
           <div>
             <h3 className="text-lg mb-2 border-b-4 border-blue-400 inline-block pb-1">
-              Sosyal Medya
+              {t("footer.socialMedia", "Sosyal Medya")}
             </h3>
             <ul className="space-y-3">
               <li className="flex items-center space-x-3">
@@ -115,13 +118,10 @@ export default function Footer() {
           {/* About text */}
           <div>
             <h3 className="text-lg mb-2 border-b-4 border-blue-400 inline-block pb-1">
-              Eşit İşyeri
+              {t("hero.title", "Eşit İşyeri")}
             </h3>
             <p className="text-sm leading-relaxed text-justify">
-              Büyükçekmece Belediyesi olarak; Toplumsal cinsiyet eşitliği ile
-              ilgili farkındalık yaratmak, kadın girişimcilerin sayısını
-              artırmak, kadınların toplumda çağdaş ve güçlü bireyler olarak yer
-              almalarını sağlamak amacıyla Eşit İşyeri Projesi başlatılmıştır.
+              {t("about.whatText", "Büyükçekmece Belediyesi olarak; Toplumsal cinsiyet eşitliği ile ilgili farkındalık yaratmak, kadın girişimcilerin sayısını artırmak, kadınların toplumda çağdaş ve güçlü bireyler olarak yer almalarını sağlamak amacıyla Eşit İşyeri Projesi başlatılmıştır.")}
             </p>
           </div>
         </div>
@@ -131,7 +131,7 @@ export default function Footer() {
       <div className="py-4 bg-gray-800">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
           <p className="text-sm text-gray-400 text-center md:text-left">
-            © {new Date().getFullYear()} {siteConfig.belediyeName} - Tüm Hakları Saklıdır.
+            © {new Date().getFullYear()} {siteConfig.belediyeName} - {t("footer.rights", "Tüm Hakları Saklıdır.")}
           </p>
           <ul className="flex space-x-4 mt-3 md:mt-0">
             <li>
