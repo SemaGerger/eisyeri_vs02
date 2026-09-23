@@ -1,12 +1,17 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const StatusMessage = ({ 
   loading = false, 
   error = null, 
   data = null, 
-  emptyMessage = "Henüz hiç veri bulunmamaktadır.",
+  emptyMessage = null,
   type = "default"
 }) => {
+  const { t } = useTranslation();
+  const defaultEmptyMsg = t("status.noData", "Henüz hiç veri bulunmamaktadır.");
+  const displayEmpty = emptyMessage || defaultEmptyMsg;
+
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center py-8">
@@ -15,7 +20,7 @@ const StatusMessage = ({
         ) : (
           <>
             <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-blue-500 mb-4"></div>
-            <p className="text-gray-600 text-lg">Yükleniyor...</p>
+            <p className="text-gray-600 text-lg">{t("status.loading", "Yükleniyor...")}</p>
           </>
         )}
       </div>
@@ -32,7 +37,7 @@ const StatusMessage = ({
         </div>
         <p className="text-red-500 text-lg font-medium">{error}</p>
         {type === "detailed" && (
-          <p className="text-gray-500 mt-2">Lütfen daha sonra tekrar deneyin.</p>
+          <p className="text-gray-500 mt-2">{t("status.tryLater", "Lütfen daha sonra tekrar deneyin.")}</p>
         )}
       </div>
     );
@@ -46,7 +51,7 @@ const StatusMessage = ({
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
         </div>*/}
-        <p className="text-gray-500 text-lg">{emptyMessage}</p>
+        <p className="text-gray-500 text-lg">{displayEmpty}</p>
       </div>
     );
   }

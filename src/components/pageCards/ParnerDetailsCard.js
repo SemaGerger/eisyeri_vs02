@@ -1,24 +1,23 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { MapPin, Phone, Mail, User, Clock } from "lucide-react";
 import PartnersList from "../../pages/partners/PartnersList";
 import StatusMessage from "../../components/status/StatusMessage";
 import PageTitle from "./PageTitle";
-import PageContainer from "./PageContainer";
 import { usePartners } from "../../hooks/UsePartners";
 import PartnerImages from "./PartnerImages";
 
 const PartnerDetailsCard = ({ partner, loading, error }) => {
-  const location = useLocation();
-  const image = location.state?.image || partner?.image;
+  const { t } = useTranslation();
   const { partners } = usePartners(1, 20);
+
   if (!partner) {
     return (
       <StatusMessage
         loading={loading}
         error={error}
         data={partner}
-        emptyMessage="Firma bulunamadı..."
+        emptyMessage={t("partnerDetail.notFound", "Firma bulunamadı...")}
       />
     );
   }
@@ -56,22 +55,21 @@ const PartnerDetailsCard = ({ partner, loading, error }) => {
             </div>
           )}
 
-
           {/* Adres Bilgisi */}
           <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center border-b border-gray-200 pb-2">
               <MapPin className="text-blue-600 mr-3" size={28} />
-              Adres Bilgisi
+              {t("partnerDetail.addressInfo", "Adres Bilgisi")}
             </h2>
-            <p className="text-sm text-gray-500">Açık Adres</p>
+            <p className="text-sm text-gray-500">{t("partnerDetail.fullAddress", "Açık Adres")}</p>
             <p className="text-lg font-medium text-gray-800">{acik_adres}</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <div>
-                <p className="text-sm text-gray-500">Mahalle</p>
+                <p className="text-sm text-gray-500">{t("partnerDetail.neighborhood", "Mahalle")}</p>
                 <p className="text-lg font-medium text-gray-800">{mahalle}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500">Cadde/Sokak</p>
+                <p className="text-sm text-gray-500">{t("partnerDetail.street", "Cadde/Sokak")}</p>
                 <p className="text-lg font-medium text-gray-800">{yol_adi}</p>
               </div>
             </div>
@@ -83,7 +81,7 @@ const PartnerDetailsCard = ({ partner, loading, error }) => {
               <div className="flex items-center mb-2">
                 <Clock className="text-blue-600 mr-3" size={24} />
                 <h2 className="text-xl font-semibold text-gray-800">
-                  Çalışma Saatleri
+                  {t("partnerDetail.workingHours", "Çalışma Saatleri")}
                 </h2>
               </div>
               <p className="text-gray-700">{calisma_saati}</p>
@@ -95,11 +93,11 @@ const PartnerDetailsCard = ({ partner, loading, error }) => {
             <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
               <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center border-b border-gray-200 pb-2">
                 <MapPin className="text-blue-600 mr-3" size={28} />
-                Konum Haritası
+                {t("partnerDetail.locationMap", "Konum Haritası")}
               </h2>
-              <div className="rounded-xl overflow-hidden shadow-md">
+              <div className="rounded-xl overflow-hidden shadow-md w-full">
                 <div
-                  className="w-full h-80"
+                  className="w-full h-80 map-container [&_iframe]:!w-full [&_iframe]:!h-full [&_iframe]:!min-w-full [&_iframe]:border-0 [&_iframe]:block"
                   dangerouslySetInnerHTML={{ __html: harita_kodu }}
                 />
               </div>
@@ -113,13 +111,13 @@ const PartnerDetailsCard = ({ partner, loading, error }) => {
           <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center border-b border-gray-200 pb-2">
               <User className="text-blue-600 mr-3" size={28} />
-              İletişim Bilgileri
+              {t("partnerDetail.contactInfo", "İletişim Bilgileri")}
             </h2>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <User className="text-gray-500 mt-1 flex-shrink-0" size={20} />
                 <div>
-                  <p className="text-sm text-gray-500">Yetkili Kişi</p>
+                  <p className="text-sm text-gray-500">{t("partnerDetail.authorizedPerson", "Yetkili Kişi")}</p>
                   <p className="text-lg font-medium text-gray-800">
                     {yetkili_kisi}
                   </p>
@@ -128,7 +126,7 @@ const PartnerDetailsCard = ({ partner, loading, error }) => {
               <div className="flex items-start gap-3">
                 <Phone className="text-gray-500 mt-1 flex-shrink-0" size={20} />
                 <div>
-                  <p className="text-sm text-gray-500">Telefon</p>
+                  <p className="text-sm text-gray-500">{t("partnerDetail.phone", "Telefon")}</p>
                   <p className="text-lg font-medium text-gray-800">
                     <a href={`tel:${telefon}`} className="hover:text-blue-600">
                       {telefon}
@@ -143,7 +141,7 @@ const PartnerDetailsCard = ({ partner, loading, error }) => {
                     size={20}
                   />
                   <div>
-                    <p className="text-sm text-gray-500">E-posta</p>
+                    <p className="text-sm text-gray-500">{t("partnerDetail.email", "E-posta")}</p>
                     <p className="text-lg font-medium text-gray-800">
                       <a
                         href={`mailto:${eposta}`}
@@ -164,7 +162,7 @@ const PartnerDetailsCard = ({ partner, loading, error }) => {
               <div className="flex items-center mb-2">
                 <Clock className="text-blue-600 mr-3" size={24} />
                 <h2 className="text-xl font-semibold text-gray-800">
-                  Çalışma Saatleri
+                  {t("partnerDetail.workingHours", "Çalışma Saatleri")}
                 </h2>
               </div>
               <p className="text-gray-700">{calisma_saati}</p>

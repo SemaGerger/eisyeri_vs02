@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import Layout from "../../layouts/Layout";
 import { usePartners } from "../../hooks/UsePartners";
 import PageContainer from "../../components/pageCards/PageContainer";
@@ -6,6 +7,7 @@ import PageTitle from "../../components/pageCards/PageTitle";
 import StatusMessage from "../../components/status/StatusMessage";
 
 const PartnersPage = () => {
+  const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [allPartners, setAllPartners] = useState([]);
   const [hasMore, setHasMore] = useState(true);
@@ -43,17 +45,16 @@ const PartnersPage = () => {
     <Layout>
       <div className="py-12 px-6 mt-16">
         <PageTitle
-          title="Eşit İşyerleri"
-          subtitle="Eşitlik, çeşitlilik ve kapsayıcılık ilkelerini benimseyen işyerlerini keşfedin"
+          title={t("partnersPage.title", "Eşit İşyerleri")}
+          subtitle={t("partnersPage.subtitle", "Eşitlik, çeşitlilik ve kapsayıcılık ilkelerini benimseyen işyerlerini keşfedin")}
         />
-        
 
         {allPartners.length === 0 && !loading && (
           <StatusMessage 
             loading={loading} 
             error={error} 
             data={allPartners} 
-            emptyMessage="Henüz veri bulunmamaktadır."
+            emptyMessage={t("partnersPage.emptyMessage", "Henüz veri bulunmamaktadır.")}
             type="detailed"
           />
         )}

@@ -1,0 +1,110 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "aboutPresident": "Başkan Hakkında",
+    "partners": "Eşit İşyerleri",
+    "about": "Hakkımızda",
+    "contact": "Bize Ulaşın",
+    "logo": "Logomuz"
+  },
+  "hero": {
+    "title": "Eşit İşyeri",
+    "highlight": "Projesi",
+    "subtitle": "Büyükçekmece Belediyesi Ruhsat ve Denetim Müdürlüğü",
+    "cta1": "İşyerinizi Kaydedin",
+    "cta2": "Bücep Grubuna Katılın"
+  },
+  "sections": {
+    "partnersTitle": "Eşit İşyerleri",
+    "partnersSubtitle": "Eşitlik, çeşitlilik ve kapsayıcılık ilkelerini benimseyen işyerleri",
+    "partnersNotFound": "Firmalar bulunamadı...",
+    "pressTitle": "Basında Biz",
+    "pressSubtitle": "Basında Eşit İşyeri ile ilgili çıkan haberler",
+    "tbbTitle": "TBB’de Biz",
+    "tbbSubtitle": "Türkiye Belediyeler Birliği ve Proje Etkinlikleri",
+    "tbbText1": "<0>Belediyelerimizin kurumsal kapasitelerinin geliştirilmesi</0>, belediyeler arasında iş birliği ve koordinasyonun arttırılması ile karşılıklı öğrenme kültürünün yaygınlaştırılması, Türkiye Belediyeler Birliği’nin öncelikli çalışma alanları arasında yer almaktadır.",
+    "tbbText2": "Bu kapsamda düzenlenen <0>Belediyecilik Forumu (BELFOR)</0>, farklı belediyelerin deneyim paylaşımında bulunmalarına ve iyi uygulama örneklerini birlikte değerlendirmelerine önemli katkılar sunmaktadır. Belediyecilik forumu (BELFOR)’nda Eşit İşyeri Projemiz <1>100’den fazla belediyeye</1> anlatılmış ve tecrübelerimiz paylaşılmıştır."
+  },
+  "about": {
+    "title": "HAKKIMIZDA",
+    "subtitle": "İşyerlerinde eşitlik, çeşitlilik ve kapsayıcılık ilkelerini yaygınlaştırmak için tasarlanmış kapsamlı bir sosyal girişim",
+    "whatTitle": "Eşit İşyeri Nedir?",
+    "whatText": "Büyükçekmece Belediyesi olarak; Toplumsal cinsiyet eşitliği ile ilgili farkındalık yaratmak, kadın girişimcilerin sayısını artırmak, kadınların toplumda çağdaş ve güçlü bireyler olarak yer almalarını sağlamak amacıyla Eşit İşyeri Projesi başlatılmıştır.",
+    "whyTitle": "Neden Almalıyım?",
+    "whyText": "İşyerinize ait ruhsat ücretlerinde %50 oranında indirim sağlanacaktır. İşyerinize ait ilan ve reklam ücretlerinde %50 oranında indirim sağlanacaktır.",
+    "conditionTitle": "Başvuru Şartları",
+    "conditionText": "- İşyerinde çalışanların %50'sinin ya da daha fazlasının kadın olması\n- İşyerinde eşit işi yapan kadın ve erkek çalışanların eşit ücret alması\n- İşyerinde işverenler haricinde en az 2 çalışan olması\n- Kadınlara mahsus hizmet veren iş yerleri bu proje kapsamı dışındadır. Bu işyerlerinin tespiti Eşit İşyeri Komisyonu tarafından değerlendirilecektir.\n- Eşit İşyeri Belgesini alan işyerleri yukarıdaki şartları koruması gerekmektedir. Aksi taktirde Eşit İşyeri Belgesi ve bu proje kapsamında faydalandığı avantajlar Eşit İşyeri Komisyonunca iptal edilecektir."
+  },
+  "president": {
+    "title": "BAŞKANIN MESAJI",
+    "text": "Eşit İşyeri projemizin amacı, şehrimiz genelinde toplumsal cinsiyet eşitliği ile ilgili farkındalık yaratmak, kadın girişimcilerin sayısını arttırmak, kadınların çalışma hayatatında çağdaş ve güçlü bireyler olarak üretimden yönetime kadar her alanda görev almalarını desteklemek ve toplumsal yaşamın her alanında ve işyerlerinde kadın-erkek eşitliğinin sağlanması konusunda önem vermek ve bu dengeyi gözetmektir."
+  },
+  "brand": {
+    "title": "Logomuz ve Marka Kimliği",
+    "description": "Eşit İşyeri projemizin logosu, şeffaflık, eşitlik ve güven ilkelerini temsil eder. Logomuz ve marka tescil belgemiz aşağıda yer almaktadır."
+  },
+  "contact": {
+    "title": "İletişime Geçin",
+    "subtitle": "Soru, görüş ve önerileriniz için aşağıdaki iletişim kanallarını kullanabilir veya iletişim formumuzu doldurabilirsiniz.",
+    "infoTitle": "İletişim Bilgileri",
+    "addressTitle": "Adres",
+    "address": "Fatih Mahallesi Şehremini Sokak. No:1 A Blok Zemin Kat Büyükçekmece/İstanbul",
+    "phoneTitle": "Telefon",
+    "emailTitle": "E-posta",
+    "hoursTitle": "Çalışma Saatleri",
+    "hours": "Pazartesi - Cuma: 08:30 - 17:30",
+    "formTitle": "İletişim Formu",
+    "formDesc": "İletişim formumuzu doldurmak için aşağıdaki butona tıklayarak ilgili sayfaya yönlendirileceksiniz.",
+    "formButton": "İletişim Formuna Git",
+    "formNotice": "Form doldurma işlemi için harici bir sayfaya yönlendirileceksiniz."
+  },
+  "partnersPage": {
+    "title": "Eşit İşyerleri",
+    "subtitle": "Eşitlik, çeşitlilik ve kapsayıcılık ilkelerini benimseyen işyerlerini keşfedin",
+    "emptyMessage": "Henüz veri bulunmamaktadır."
+  },
+  "partnerDetail": {
+    "addressInfo": "Adres Bilgisi",
+    "fullAddress": "Açık Adres",
+    "neighborhood": "Mahalle",
+    "street": "Cadde/Sokak",
+    "workingHours": "Çalışma Saatleri",
+    "locationMap": "Konum Haritası",
+    "contactInfo": "İletişim Bilgileri",
+    "authorizedPerson": "Yetkili Kişi",
+    "phone": "Telefon",
+    "email": "E-posta",
+    "notFound": "Firma bulunamadı..."
+  },
+  "partnerList": {
+    "otherPartners": "Diğer İşyerleri",
+    "otherSubtitle": "Benzer eşit işyerlerini keşfedin",
+    "emptyMessage": "Gösterilecek işyeri bulunamadı",
+    "viewAll": "Tümünü Görüntüle",
+    "authorized": "Yetkili",
+    "type": "Tür"
+  },
+  "defaultTexts": {
+    "noName": "İsim yok",
+    "noContact": "Yetkili yok",
+    "noActivity": "Faaliyet türü yok",
+    "noImage": "Resim Yok"
+  },
+  "status": {
+    "loading": "Yükleniyor...",
+    "tryLater": "Lütfen daha sonra tekrar deneyin.",
+    "noData": "Henüz veri bulunmamaktadır."
+  },
+  "footer": {
+    "department": "Ruhsat ve Denetim Müdürlüğü",
+    "municipality": "Büyükçekmece Belediyesi",
+    "eMunicipality": "E-Belediye",
+    "socialMedia": "Sosyal Medya",
+    "rights": "Tüm Hakları Saklıdır."
+  },
+  "language": {
+    "current": "TR",
+    "switch": "EN",
+    "label": "Dili Değiştir"
+  }
+}

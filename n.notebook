@@ -1,3 +1,54 @@
 npm install react react-dom tailwindcss @tailwindcss/postcss
 
 npm start
+
+
+##############################################################
+
+* **`React 19`
+
+---
+
+### 2. Sayfa Yönlendirme (Routing)
+* **`React Router v7` (`react-router-dom`):** Sayfalar arası geçişleri 
+
+---
+
+### 3. Çoklu Dil Desteği (i18n - Internationalization)
+* **`i18next`:** Çoklu dil yönetiminin çekirdek motoru.
+* **`react-i18next`:** i18next'i React bileşenlerine ve hook'larına (`useTranslation`) bağlayan kütüphane.
+* **`i18next-browser-languagedetector`:** Kullanıcının seçtiği dili veya tarayıcı dilini (`localStorage`) otomatik tespit edip hafızada tutan eklenti.
+
+---
+
+### 4. Tasarım ve Stil (CSS & UI)
+* **`Tailwind CSS` (`tailwindcss`, `@tailwindcss/postcss`):** Sınıf bazlı (utility-first), hızlı ve responsive modern CSS tasarım kütüphanesi.
+
+---
+
+### 5. İkon Seti (Icons)
+* **`Lucide React` (`lucide-react`):** Menü, harita, telefon, e-posta, dünya (`Globe`), kullanıcı (`Users`) gibi tüm modern vektörel ikonları sağlayan hafif ikon kütüphanesi.
+
+---
+
+### 6. Veri İletişimi (HTTP / API Client)
+* **`Axios` (`axios`):** Arka uç (Backend/API) servislerinden veri çekmek (örneğin eşit işyerleri listesi verileri) için kullanılan HTTP istemcisi.
+
+---
+
+### 7. Test ve Performans Araçları
+* **`Testing Library` (`@testing-library/react`, `@testing-library/jest-dom`, `@testing-library/user-event`):** Bileşenlerin ve kullanıcı etkileşimlerinin test edilmesi için kullanılan kütüphaneler.
+* **`Web Vitals` (`web-vitals`):** Sitenin yüklenme hızı ve kullanıcı deneyimi performans metriklerini ölçen Google kütüphanesi.
+
+---
+
+### Özet Teknoloji Yığını (Tech Stack Tablosu)
+
+| Kategori | Teknoloji / Kütüphane | Kullanım Amacı |
+| :--- | :--- | :--- |
+| **Frontend Framework** | `React 19` | Arayüz geliştirme |
+| **Routing** | `React Router DOM 7` | Sayfa yönlendirmeleri |
+| **Stil & Tasarım** | `Tailwind CSS` | Tasarım ve responsive düzen |
+| **Çoklu Dil** | `react-i18next` + `i18next` | TR / EN dil desteği |
+| **İkonlar** | `lucide-react` | Arayüz ikonları |
+| **API İletişimi** | `axios` | Sunucu/API veri istekleri |

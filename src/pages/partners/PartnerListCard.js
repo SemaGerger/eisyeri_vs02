@@ -1,20 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { MapPin, User, Clock, Building } from 'lucide-react';
 import SampleImage from '../../assets/logos/esitisyeri-kalp-logo.png';
 import siteConfig from '../../config/siteConfig';
 
 
 const PartnerListCard = ({ partner }) => {
-
-    //console.log('Partner data:', partner);
+    const { t } = useTranslation();
     
     const cells = partner.Cells || partner.cells || [];
     
-    // Veya direkt partner objesinden property'leri al
-    const name = partner.isyeri_unvani || partner.name || cells[2]?.DisplayText || "İsim yok";
-    const yetkili = partner.yetkili_kisi || partner.yetkili || cells[3]?.DisplayText || "Yetkili yok";
-    const faaliyet = partner.faaliyet_turu || partner.faaliyet || cells[4]?.DisplayText || "Faaliyet türü yok";
+    // Direkt partner objesinden property'leri al (ham veri korunur)
+    const name = partner.isyeri_unvani || partner.name || cells[2]?.DisplayText || t("defaultTexts.noName", "İsim yok");
+    const yetkili = partner.yetkili_kisi || partner.yetkili || cells[3]?.DisplayText || t("defaultTexts.noContact", "Yetkili yok");
+    const faaliyet = partner.faaliyet_turu || partner.faaliyet || cells[4]?.DisplayText || t("defaultTexts.noActivity", "Faaliyet türü yok");
     const calismaSaati = partner.calisma_saati || partner.calismaSaati || cells[10]?.DisplayText || "";
     const mahalle = partner.mahalle || cells[7]?.DisplayText || "";
     const yolAdi = partner.yol_adi || partner.yolAdi || cells[8]?.DisplayText || "";

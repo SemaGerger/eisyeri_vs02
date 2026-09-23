@@ -71,9 +71,9 @@ export const TBBPhotos = [
 
 
 export const servicesData = [
-  { id: 1, title: "yüzde 50", description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. " },
-  { id: 2, title: "destek", description: "Esse rem ducimus excepturi fuga quos libero voluptate neque." },
-  { id: 3, title: "eşit işyeri", description: " Ut incidunt, iusto libero, eaque ipsamg" },
+  { id: 1, title: "%50 Harç İndirimi", description: "Ruhsat, ilan ve reklam ücretlerinde %50 indirim avantajından yararlanın." },
+  { id: 2, title: "Kadın İstihdamına Destek", description: "Kadın girişimcileri ve çalışanları güçlendirerek eşitliği teşvik edin." },
+  { id: 3, title: "Eşit İşyeri Tescili", description: "Toplumsal cinsiyet eşitliğini benimseyen öncü işletmeler arasında yerinizi alın." },
 ];
 
 export const pressData = [

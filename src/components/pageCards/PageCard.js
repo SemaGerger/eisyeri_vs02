@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const PageCard = ({ id, name, image, extraInfo }) => {
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
   
   const handleClick = () => { navigate(`/details/${id}`);};
@@ -22,7 +23,7 @@ const PageCard = ({ id, name, image, extraInfo }) => {
             />
           ) : (
             <div className="w-full h-40 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
-              Resim Yok
+              {t("defaultTexts.noImage", "Resim Yok")}
             </div>
           )}
         </div>

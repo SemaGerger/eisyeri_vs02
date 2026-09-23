@@ -1,5 +1,6 @@
 {
   "files": {
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     "main.css": "/static/css/main.7526681b.css",
     "main.js": "/static/js/main.726eb263.js",
@@ -8,6 +9,11 @@
     "main.js": "/static/js/main.4f29eba9.js",
 >>>>>>> Stashed changes
     "static/js/453.b23e4266.chunk.js": "/static/js/453.b23e4266.chunk.js",
+=======
+    "main.css": "/static/css/main.899950c1.css",
+    "main.js": "/static/js/main.30bd9fd0.js",
+    "static/js/453.bcc322c1.chunk.js": "/static/js/453.bcc322c1.chunk.js",
+>>>>>>> 350b4b0b046d11559ed754351db3eaedfb3797f8
     "static/media/Tv5.mp4": "/static/media/Tv5.18cd6b365715b0e774ed.mp4",
     "static/media/HalkTv.mp4": "/static/media/HalkTv.220f86422941ca44bab9.mp4",
     "static/media/45lik.mp4": "/static/media/45lik.a57ff9c19a04aa567a8f.mp4",
@@ -43,6 +49,7 @@
     "static/media/esitIsyeriLogo.png": "/static/media/esitIsyeriLogo.8bbb851041a71dbed21c.png",
     "static/media/bcekmecebldlogo.png": "/static/media/bcekmecebldlogo.60e322cfc15d2e131dd1.png",
     "index.html": "/index.html",
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     "main.7526681b.css.map": "/static/css/main.7526681b.css.map",
     "main.726eb263.js.map": "/static/js/main.726eb263.js.map",
@@ -60,5 +67,14 @@
     "static/css/main.0830b113.css",
     "static/js/main.4f29eba9.js"
 >>>>>>> Stashed changes
+=======
+    "main.899950c1.css.map": "/static/css/main.899950c1.css.map",
+    "main.30bd9fd0.js.map": "/static/js/main.30bd9fd0.js.map",
+    "453.bcc322c1.chunk.js.map": "/static/js/453.bcc322c1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.899950c1.css",
+    "static/js/main.30bd9fd0.js"
+>>>>>>> 350b4b0b046d11559ed754351db3eaedfb3797f8
   ]
 }
