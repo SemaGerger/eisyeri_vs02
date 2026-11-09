@@ -1,7 +1,11 @@
 {
   "files": {
     "main.css": "/static/css/main.ea15612f.css",
+<<<<<<< HEAD
     "main.js": "/static/js/main.e7142d01.js",
+=======
+    "main.js": "/static/js/main.341eb3e9.js",
+>>>>>>> 5c4e59de6e5d1642daaf80a37b370740d4d2135d
     "static/js/453.cef42150.chunk.js": "/static/js/453.cef42150.chunk.js",
     "static/media/Tv5.mp4": "/static/media/Tv5.18cd6b365715b0e774ed.mp4",
     "static/media/HalkTv.mp4": "/static/media/HalkTv.220f86422941ca44bab9.mp4",
@@ -39,11 +43,19 @@
     "static/media/bcekmecebldlogo.png": "/static/media/bcekmecebldlogo.60e322cfc15d2e131dd1.png",
     "index.html": "/index.html",
     "main.ea15612f.css.map": "/static/css/main.ea15612f.css.map",
+<<<<<<< HEAD
     "main.e7142d01.js.map": "/static/js/main.e7142d01.js.map",
+=======
+    "main.341eb3e9.js.map": "/static/js/main.341eb3e9.js.map",
+>>>>>>> 5c4e59de6e5d1642daaf80a37b370740d4d2135d
     "453.cef42150.chunk.js.map": "/static/js/453.cef42150.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ea15612f.css",
+<<<<<<< HEAD
     "static/js/main.e7142d01.js"
+=======
+    "static/js/main.341eb3e9.js"
+>>>>>>> 5c4e59de6e5d1642daaf80a37b370740d4d2135d
   ]
 }
