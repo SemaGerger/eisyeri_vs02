@@ -1,174 +1,138 @@
-import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation, Trans } from "react-i18next";
 import { ZoomIn } from "lucide-react";
 import SectionTitle from "../../components/section/SectionTitle";
+import MediaDialog from "../../components/media/MediaDialog";
 import { TBBPhotos } from "../../api/DefaultData";
 
+const DEFAULT_ITEM_WIDTH = 264;
+
+function getScrollPositions(maxScroll, itemWidth) {
+  const positions = [0];
+  for (let position = itemWidth; position < maxScroll; position += itemWidth) positions.push(position);
+  if (maxScroll > 0) positions.push(maxScroll);
+  return positions;
+}
 
 function TBBSection() {
   const { t } = useTranslation();
-  const sectionRef = useRef(null);
   const carouselRef = useRef(null);
-
+  const drag = useRef({ active: false, moved: false, startX: 0, scrollStart: 0 });
+  const suppressClick = useRef(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [positions, setPositions] = useState([0]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const startX = useRef(0);
-  const scrollStart = useRef(0);
-
-  const cardWidth = 240;
-  const gap = 24;
-  const itemWidth = cardWidth + gap;
-
-  const getMaxIndex = () => {
-    const carousel = carouselRef.current;
-    if (!carousel) return 0;
-
-    return Math.ceil((carousel.scrollWidth - carousel.clientWidth) / itemWidth);
-  };
-
-  const updateActiveIndex = () => {
+  const updateActiveIndex = useCallback((nextPositions = positions) => {
     const carousel = carouselRef.current;
     if (!carousel) return;
+    const nearestIndex = nextPositions.reduce((nearest, position, index) => (
+      Math.abs(carousel.scrollLeft - position) < Math.abs(carousel.scrollLeft - nextPositions[nearest])
+        ? index : nearest
+    ), 0);
+    setActiveIndex(nearestIndex);
+  }, [positions]);
 
-    const index = Math.round(carousel.scrollLeft / itemWidth);
-    const maxIndex = getMaxIndex();
-    const safeIndex = Math.max(0, Math.min(index, maxIndex));
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return undefined;
 
+    const measure = () => {
+      const firstCard = carousel.firstElementChild;
+      const width = firstCard?.getBoundingClientRect().width;
+      const gap = parseFloat(window.getComputedStyle(carousel).columnGap) || 24;
+      const itemWidth = width > 0 ? width + gap : DEFAULT_ITEM_WIDTH;
+      const maxScroll = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
+      const nextPositions = getScrollPositions(maxScroll, itemWidth);
+      setPositions(nextPositions);
+      const nearest = nextPositions.reduce((result, position, index) => (
+        Math.abs(carousel.scrollLeft - position) < Math.abs(carousel.scrollLeft - nextPositions[result])
+          ? index : result
+      ), 0);
+      setActiveIndex(nearest);
+    };
+
+    measure();
+    const observer = typeof ResizeObserver !== "undefined" ? new ResizeObserver(measure) : null;
+    observer?.observe(carousel);
+    if (carousel.firstElementChild) observer?.observe(carousel.firstElementChild);
+    window.addEventListener("resize", measure);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+
+  const scrollToIndex = (index) => {
+    const safeIndex = Math.max(0, Math.min(index, positions.length - 1));
+    carouselRef.current?.scrollTo({ left: positions[safeIndex], behavior: "smooth" });
     setActiveIndex(safeIndex);
   };
 
-  const scrollToIndex = (index) => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-    carousel.scrollTo({
-      left: index * itemWidth,
-      behavior: "smooth",
-    });
-
-    setActiveIndex(index);
-  };
-
-  const scrollLeft = () => {
-    const nextIndex = Math.max(activeIndex - 1, 0);
-    scrollToIndex(nextIndex);
-  };
-
-  const scrollRight = () => {
-    const maxIndex = getMaxIndex();
-    const nextIndex = Math.min(activeIndex + 1, maxIndex);
-    scrollToIndex(nextIndex);
-  };
-
   const handleMouseDown = (event) => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-    setIsDragging(true);
-    startX.current = event.pageX;
-    scrollStart.current = carousel.scrollLeft;
+    if (event.button !== 0 || !carouselRef.current) return;
+    suppressClick.current = false;
+    drag.current = {
+      active: true,
+      moved: false,
+      startX: event.clientX,
+      scrollStart: carouselRef.current.scrollLeft,
+    };
   };
 
   const handleMouseMove = (event) => {
-    const carousel = carouselRef.current;
-    if (!isDragging || !carousel) return;
-
-    const diff = event.pageX - startX.current;
-    carousel.scrollLeft = scrollStart.current - diff;
+    if (!drag.current.active || !carouselRef.current) return;
+    const diff = event.clientX - drag.current.startX;
+    if (Math.abs(diff) > 6) {
+      drag.current.moved = true;
+      suppressClick.current = true;
+      setIsDragging(true);
+    }
+    if (drag.current.moved) {
+      event.preventDefault();
+      carouselRef.current.scrollLeft = drag.current.scrollStart - diff;
+    }
   };
 
   const stopDragging = () => {
-    if (!isDragging) return;
-
+    drag.current.active = false;
     setIsDragging(false);
     updateActiveIndex();
   };
 
-  const openPhoto = (index) => {
-    if (isDragging) return;
+  const openPhoto = (index, event) => {
+    // Mouseup runs before click. Keep the drag flag until that click is consumed.
+    if (suppressClick.current && event.detail !== 0) {
+      suppressClick.current = false;
+      event.preventDefault();
+      return;
+    }
+    suppressClick.current = false;
     setSelectedIndex(index);
   };
 
-  const closePhoto = () => {
-    setSelectedIndex(null);
-  };
-
-  const showPrevPhoto = (event) => {
-    event.stopPropagation();
-
-    setSelectedIndex((current) => {
-      if (current === null) return null;
-      return current === 0 ? TBBPhotos.length - 1 : current - 1;
-    });
-  };
-
-  const showNextPhoto = (event) => {
-    event.stopPropagation();
-
-    setSelectedIndex((current) => {
-      if (current === null) return null;
-      return current === TBBPhotos.length - 1 ? 0 : current + 1;
-    });
-  };
-
-  const showNextPhotoFromImage = (event) => {
-    showNextPhoto(event);
-  };
-
-  useEffect(() => {
-    if (selectedIndex === null) return;
-
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        closePhoto();
-        return;
-      }
-
-      if (event.key === "ArrowLeft") {
-        setSelectedIndex((current) => {
-          if (current === null) return null;
-          return current === 0 ? TBBPhotos.length - 1 : current - 1;
-        });
-        return;
-      }
-
-      if (event.key === "ArrowRight") {
-        setSelectedIndex((current) => {
-          if (current === null) return null;
-          return current === TBBPhotos.length - 1 ? 0 : current + 1;
-        });
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = originalOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [selectedIndex]);
-
-  const dotCount = getMaxIndex() + 1;
-  const selectedPhoto =
-    selectedIndex !== null ? TBBPhotos[selectedIndex].image : null;
+  const showPrevPhoto = () => setSelectedIndex((current) => (
+    current === null ? null : (current + TBBPhotos.length - 1) % TBBPhotos.length
+  ));
+  const showNextPhoto = () => setSelectedIndex((current) => (
+    current === null ? null : (current + 1) % TBBPhotos.length
+  ));
+  const photoTitle = (index) => t("media.tbbPhoto", {
+    number: index + 1,
+    defaultValue: "TBB’de Biz {{number}}",
+  });
+  const selectedPhoto = selectedIndex === null ? null : TBBPhotos[selectedIndex];
 
   return (
-    <section ref={sectionRef} className="bg-gray-50 px-6 py-12">
+    <section className="bg-gray-50 px-4 py-12 sm:px-6">
       <SectionTitle
         title={t("sections.tbbTitle", "TBB'de Biz")}
         subtitle={t("sections.tbbSubtitle", "Türkiye Belediyeler Birliği ve Proje Etkinlikleri")}
       />
 
-      {/* Tanıtım ve Kurumsal Kapasite Bilgi Bölümü */}
-      <div className="mx-auto mb-12 max-w-5xl px-6">
+      <div className="mx-auto mb-12 max-w-5xl px-2 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start text-gray-700">
-          {/* Sol Sütun - TBB Öncelikli Çalışma Alanı */}
           <div className="relative pl-6 border-l-2 border-blue-500">
             <p className="text-base md:text-lg leading-relaxed font-light text-gray-600">
               <Trans
@@ -177,8 +141,6 @@ function TBBSection() {
               />
             </p>
           </div>
-
-          {/* Sağ Sütun - BELFOR ve Eşit İşyeri */}
           <div className="relative pl-6 border-l-2 border-purple-500">
             <p className="text-base md:text-lg leading-relaxed font-light text-gray-600">
               <Trans
@@ -196,111 +158,88 @@ function TBBSection() {
       <div className="relative mx-auto mt-10 w-full max-w-[1600px]">
         <button
           type="button"
-          onClick={scrollLeft}
-          className="absolute -left-6 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-2xl shadow-lg transition hover:scale-105"
+          onClick={() => scrollToIndex(activeIndex - 1)}
+          disabled={activeIndex === 0}
+          aria-label={t("media.previous", "Önceki görsel")}
+          className="absolute left-1 top-[180px] z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-2xl shadow-lg transition hover:scale-105 disabled:opacity-40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600"
         >
-          ‹
+          <span aria-hidden="true">‹</span>
         </button>
 
         <div
           ref={carouselRef}
-          onScroll={updateActiveIndex}
+          role="region"
+          aria-label={t("media.gallery", "TBB fotoğraf galerisi")}
+          onScroll={() => updateActiveIndex()}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={stopDragging}
           onMouseLeave={stopDragging}
-          className={`flex select-none gap-6 overflow-x-auto scroll-smooth pb-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${
-            isDragging ? "cursor-grabbing" : "cursor-grab"
-          }`}
+          className={`flex select-none gap-6 overflow-x-auto pb-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${isDragging ? "cursor-grabbing scroll-auto" : "cursor-grab scroll-smooth"}`}
         >
           {TBBPhotos.map((photo, index) => (
-            <div
+            <button
               key={photo.id}
-              onClick={() => openPhoto(index)}
-              className="group relative w-60 shrink-0 cursor-pointer overflow-hidden rounded-2xl bg-white shadow-md transition hover:-translate-y-1 hover:shadow-xl"
+              type="button"
+              onClick={(event) => openPhoto(index, event)}
+              aria-label={t("media.openImage", { title: photoTitle(index), defaultValue: "{{title}} görselini büyüt" })}
+              className="group relative w-60 shrink-0 overflow-hidden rounded-2xl bg-white text-left shadow-md transition hover:-translate-y-1 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-blue-600"
             >
               <img
                 src={photo.image}
-                alt={`TBB'de Biz ${photo.id}`}
-                draggable="false"
+                alt={photoTitle(index)}
+                draggable={false}
                 loading="lazy"
+                decoding="async"
                 className="h-[360px] w-full object-cover object-center transition duration-500 group-hover:scale-105"
               />
-              <div className="absolute bottom-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white shadow-md backdrop-blur-sm transition duration-300 group-hover:scale-110 group-hover:bg-blue-600">
+              <span aria-hidden="true" className="absolute bottom-3 right-3 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white shadow-md backdrop-blur-sm group-hover:bg-blue-600">
                 <ZoomIn size={18} />
-              </div>
-            </div>
+              </span>
+            </button>
           ))}
         </div>
 
         <button
           type="button"
-          onClick={scrollRight}
-          className="absolute -right-6 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-2xl shadow-lg transition hover:scale-105"
+          onClick={() => scrollToIndex(activeIndex + 1)}
+          disabled={activeIndex === positions.length - 1}
+          aria-label={t("media.next", "Sonraki görsel")}
+          className="absolute right-1 top-[180px] z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-2xl shadow-lg transition hover:scale-105 disabled:opacity-40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600"
         >
-          ›
+          <span aria-hidden="true">›</span>
         </button>
 
-        <div className="mt-2 flex justify-center gap-2">
-          {Array.from({ length: dotCount }).map((_, index) => (
+        <div className="mt-2 flex flex-wrap justify-center gap-1">
+          {positions.map((position, index) => (
             <button
-              key={index}
+              key={position}
               type="button"
               onClick={() => scrollToIndex(index)}
-              className={`h-2 rounded-full transition-all ${
-                activeIndex === index
-                  ? "w-7 bg-gray-900"
-                  : "w-2 bg-gray-300 hover:bg-gray-400"
-              }`}
-            />
+              aria-label={t("media.galleryPage", { number: index + 1, defaultValue: "Galeri sayfası {{number}}" })}
+              aria-current={activeIndex === index ? "true" : undefined}
+              className="flex h-11 w-11 items-center justify-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600"
+            >
+              <span aria-hidden="true" className={`h-2 rounded-full transition-all ${activeIndex === index ? "w-7 bg-gray-900" : "w-2 bg-gray-300 hover:bg-gray-400"}`} />
+            </button>
           ))}
         </div>
       </div>
 
-      {selectedPhoto &&
-        createPortal(
-          <div
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-4"
-            onClick={closePhoto}
-          >
-            <button
-              type="button"
-              onClick={closePhoto}
-              aria-label="Kapat"
-              className="absolute right-6 top-6 z-20 text-4xl font-bold text-white transition hover:text-gray-300"
-            >
-              ×
-            </button>
-
-            <div className="relative flex items-center justify-center">
-              <button
-                type="button"
-                onClick={showPrevPhoto}
-                aria-label="Önceki"
-                className="absolute -left-16 top-1/2 z-20 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-6xl text-white transition hover:bg-white/25"
-              >
-                ‹
-              </button>
-
-              <img
-                src={selectedPhoto}
-                alt="TBB büyütülmüş görsel"
-                className="max-h-[85vh] max-w-[90vw] cursor-pointer rounded-2xl object-contain shadow-2xl"
-                onClick={showNextPhotoFromImage}
-              />
-
-              <button
-                type="button"
-                onClick={showNextPhoto}
-                aria-label="Sonraki"
-                className="absolute -right-16 top-1/2 z-20 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-6xl text-white transition hover:bg-white/25"
-              >
-                ›
-              </button>
-            </div>
-          </div>,
-          document.body
-        )}
+      {selectedPhoto && (
+        <MediaDialog
+          title={photoTitle(selectedIndex)}
+          onClose={() => setSelectedIndex(null)}
+          onPrevious={showPrevPhoto}
+          onNext={showNextPhoto}
+        >
+          <img
+            src={selectedPhoto.image}
+            alt={photoTitle(selectedIndex)}
+            className="max-h-[75vh] max-w-full rounded-lg object-contain"
+          />
+        </MediaDialog>
+      )}
     </section>
   );
 }

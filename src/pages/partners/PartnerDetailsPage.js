@@ -4,7 +4,6 @@ import { usePartner } from "../../hooks/UsePartner";
 
 import Layout from "../../layouts/Layout";
 import ParnerDetailsCard from "../../components/pageCards/ParnerDetailsCard";
-import StatusMessage from "../../components/status/StatusMessage";
 
 
 const PartnerDetailsPage = () => {

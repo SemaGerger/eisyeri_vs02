@@ -15,10 +15,10 @@ const AboutPresident = () => {
             className="grid md:grid-cols-2 gap-8 bg-white rounded-2xl shadow-2xl overflow-hidden max-w-4xl w-full"
           >
             {/* Text */}
-            <div className="flex flex-col justify-center bg-gray-100 p-10">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 ">
+            <div className="flex flex-col justify-center bg-gray-100 p-5 sm:p-10">
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 ">
                 {t("president.title", item.title)}
-              </h2>
+              </h1>
               <p className="text-lg text-gray-600 whitespace-pre-line">
                 {t("president.text", item.text)}
               </p>
@@ -26,8 +26,10 @@ const AboutPresident = () => {
             {/* Image */}
             <div className="relative">
               <img
+                  loading="lazy"
+                  decoding="async"
                 src={item.image}
-                alt={item.title}
+                alt={t("president.title", item.title)}
                 className="object-cover w-full h-full"
               />
               <div className="absolute inset-0" />

@@ -5,7 +5,10 @@
     "partners": "Eşit İşyerleri",
     "about": "About Us",
     "contact": "Contact Us",
-    "logo": "Our Logo"
+    "logo": "Our Logo",
+    "primaryNavigation": "Main navigation",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "hero": {
     "title": "Eşit İşyeri",
@@ -41,7 +44,9 @@
   },
   "brand": {
     "title": "Our Logo & Brand Identity",
-    "description": "The logo of our Eşit İşyeri project represents principles of transparency, equality, and trust. Our logo and trademark registration certificate are shown below."
+    "description": "The logo of our Eşit İşyeri project represents principles of transparency, equality, and trust. Our logo and trademark registration certificate are shown below.",
+    "logoTitle": "Eşit İşyeri Logo",
+    "certificateTitle": "Trademark Registration Certificate"
   },
   "contact": {
     "title": "Contact Us",
@@ -56,7 +61,8 @@
     "formTitle": "Contact Form",
     "formDesc": "To fill out our contact form, please click the button below to be redirected to the relevant page.",
     "formButton": "Go to Contact Form",
-    "formNotice": "You will be redirected to an external page to submit the form."
+    "formNotice": "You will be redirected to an external page to submit the form.",
+    "mapTitle": "Map of Büyükçekmece Municipality"
   },
   "partnersPage": {
     "title": "Eşit İşyerleri",
@@ -88,23 +94,55 @@
     "noName": "No name",
     "noContact": "No contact",
     "noActivity": "No activity type",
-    "noImage": "No Image"
+    "noImage": "No Image",
+    "notProvided": "Not provided"
   },
   "status": {
     "loading": "Loading...",
     "tryLater": "Please try again later.",
-    "noData": "No data available yet."
+    "noData": "No data available yet.",
+    "serviceConfig": "The business directory service is not configured yet.",
+    "serviceLogin": "Could not sign in to the business directory service.",
+    "serviceResponse": "The business directory service returned an unexpected response.",
+    "serviceTimeout": "The business directory service did not respond in time. Please try again.",
+    "serviceNetwork": "The business directory service is unavailable. Please try again later.",
+    "serviceError": "Business details could not be loaded. Please try again later."
   },
   "footer": {
     "department": "Directorate of Licensing and Inspection",
     "municipality": "Büyükçekmece Municipality",
     "eMunicipality": "E-Municipality",
     "socialMedia": "Social Media",
-    "rights": "All Rights Reserved."
+    "rights": "All Rights Reserved.",
+    "socialAccount": "{{name}} account"
   },
   "language": {
     "current": "EN",
     "switch": "TR",
     "label": "Change Language"
+  },
+  "media": {
+    "close": "Close",
+    "previous": "Previous image",
+    "next": "Next image",
+    "playVideo": "Play {{title}} video",
+    "openImage": "Enlarge {{title}} image",
+    "gallery": "TBB photo gallery",
+    "galleryPage": "Gallery page {{number}}",
+    "tbbPhoto": "Us at TBB {{number}}",
+    "pauseBackground": "Pause background video",
+    "resumeBackground": "Play background video",
+    "watchFilm": "Watch the introduction video",
+    "image": "Image {{number}}"
+  },
+  "partnerCarousel": {
+    "label": "Eşit İşyerleri",
+    "previous": "Previous businesses",
+    "next": "Next businesses",
+    "page": "Business page {{page}} of {{count}}"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page may have moved or been removed. You can continue from the home page."
   }
 }

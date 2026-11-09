@@ -6,6 +6,8 @@ import StatusMessage from "../../components/status/StatusMessage";
 import PageTitle from "./PageTitle";
 import { usePartners } from "../../hooks/UsePartners";
 import PartnerImages from "./PartnerImages";
+import { getMapEmbedUrl } from "../../utils/mapEmbed";
+import { getPartnerId } from "../../utils/partnerFields";
 
 const PartnerDetailsCard = ({ partner, loading, error }) => {
   const { t } = useTranslation();
@@ -34,9 +36,12 @@ const PartnerDetailsCard = ({ partner, loading, error }) => {
     eposta,
     faaliyet_turu,
   } = partner;
+  const mapUrl = getMapEmbedUrl(harita_kodu);
+  const currentId = getPartnerId(partner);
+  const otherPartners = partners.filter((item) => currentId === null || getPartnerId(item) !== currentId);
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8">
+    <div className="min-w-0 max-w-6xl mx-auto space-y-8 break-words">
       {/* Header */}
       <PageTitle
         title={isyeri_unvani}
@@ -46,7 +51,7 @@ const PartnerDetailsCard = ({ partner, loading, error }) => {
       {/* Grid Container */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Left: Photo + Adres + Harita + Çalışma Saatleri */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="min-w-0 lg:col-span-2 space-y-6">
 
           {/* Photos */}
           {partner?.files && (
@@ -56,19 +61,19 @@ const PartnerDetailsCard = ({ partner, loading, error }) => {
           )}
 
           {/* Adres Bilgisi */}
-          <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center border-b border-gray-200 pb-2">
-              <MapPin className="text-blue-600 mr-3" size={28} />
+          <div className="min-w-0 bg-white rounded-2xl p-4 sm:p-6 shadow-md border border-gray-100">
+            <h2 className="min-w-0 text-xl sm:text-2xl font-semibold text-gray-800 mb-4 flex items-center border-b border-gray-200 pb-2">
+              <MapPin className="shrink-0 text-blue-600 mr-3" aria-hidden="true" size={28} />
               {t("partnerDetail.addressInfo", "Adres Bilgisi")}
             </h2>
             <p className="text-sm text-gray-500">{t("partnerDetail.fullAddress", "Açık Adres")}</p>
             <p className="text-lg font-medium text-gray-800">{acik_adres}</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <div>
+            <div className="min-w-0 grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div className="min-w-0">
                 <p className="text-sm text-gray-500">{t("partnerDetail.neighborhood", "Mahalle")}</p>
                 <p className="text-lg font-medium text-gray-800">{mahalle}</p>
               </div>
-              <div>
+              <div className="min-w-0">
                 <p className="text-sm text-gray-500">{t("partnerDetail.street", "Cadde/Sokak")}</p>
                 <p className="text-lg font-medium text-gray-800">{yol_adi}</p>
               </div>
@@ -77,9 +82,9 @@ const PartnerDetailsCard = ({ partner, loading, error }) => {
 
           {/* Çalışma Saatleri (Mobil) */}
           {calisma_saati && (
-            <div className="lg:hidden p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl shadow-md">
+            <div className="min-w-0 lg:hidden p-4 sm:p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl shadow-md">
               <div className="flex items-center mb-2">
-                <Clock className="text-blue-600 mr-3" size={24} />
+                <Clock className="shrink-0 text-blue-600 mr-3" aria-hidden="true" size={24} />
                 <h2 className="text-xl font-semibold text-gray-800">
                   {t("partnerDetail.workingHours", "Çalışma Saatleri")}
                 </h2>
@@ -89,16 +94,21 @@ const PartnerDetailsCard = ({ partner, loading, error }) => {
           )}
 
           {/* Map */}
-          {harita_kodu && (
-            <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center border-b border-gray-200 pb-2">
-                <MapPin className="text-blue-600 mr-3" size={28} />
+          {mapUrl && (
+            <div className="min-w-0 bg-white rounded-2xl p-4 sm:p-6 shadow-md border border-gray-100">
+              <h2 className="min-w-0 text-xl sm:text-2xl font-semibold text-gray-800 mb-4 flex items-center border-b border-gray-200 pb-2">
+                <MapPin className="shrink-0 text-blue-600 mr-3" aria-hidden="true" size={28} />
                 {t("partnerDetail.locationMap", "Konum Haritası")}
               </h2>
               <div className="rounded-xl overflow-hidden shadow-md w-full">
-                <div
-                  className="w-full h-80 map-container [&_iframe]:!w-full [&_iframe]:!h-full [&_iframe]:!min-w-full [&_iframe]:border-0 [&_iframe]:block"
-                  dangerouslySetInnerHTML={{ __html: harita_kodu }}
+                <iframe
+                  title={t("partnerDetail.locationMap", "Konum Haritası")}
+                  className="block w-full h-80 border-0"
+                  src={mapUrl}
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                  sandbox="allow-scripts allow-same-origin allow-popups"
+                  allowFullScreen
                 />
               </div>
             </div>
@@ -106,46 +116,46 @@ const PartnerDetailsCard = ({ partner, loading, error }) => {
         </div>
 
         {/* Right: İletişim + Çalışma Saatleri (Desktop) + Diğer Şirketler */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="min-w-0 lg:col-span-2 space-y-6">
           {/* İletişim Bilgileri */}
-          <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center border-b border-gray-200 pb-2">
-              <User className="text-blue-600 mr-3" size={28} />
+          <div className="min-w-0 bg-white rounded-2xl p-4 sm:p-6 shadow-md border border-gray-100">
+            <h2 className="min-w-0 text-xl sm:text-2xl font-semibold text-gray-800 mb-4 flex items-center border-b border-gray-200 pb-2">
+              <User className="shrink-0 text-blue-600 mr-3" aria-hidden="true" size={28} />
               {t("partnerDetail.contactInfo", "İletişim Bilgileri")}
             </h2>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <User className="text-gray-500 mt-1 flex-shrink-0" size={20} />
-                <div>
+                <User className="text-gray-500 mt-1 flex-shrink-0" aria-hidden="true" size={20} />
+                <div className="min-w-0 flex-1">
                   <p className="text-sm text-gray-500">{t("partnerDetail.authorizedPerson", "Yetkili Kişi")}</p>
                   <p className="text-lg font-medium text-gray-800">
-                    {yetkili_kisi}
+                    {yetkili_kisi || t("defaultTexts.notProvided", "Belirtilmemiş")}
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Phone className="text-gray-500 mt-1 flex-shrink-0" size={20} />
-                <div>
+                <Phone className="text-gray-500 mt-1 flex-shrink-0" aria-hidden="true" size={20} />
+                <div className="min-w-0 flex-1">
                   <p className="text-sm text-gray-500">{t("partnerDetail.phone", "Telefon")}</p>
                   <p className="text-lg font-medium text-gray-800">
-                    <a href={`tel:${telefon}`} className="hover:text-blue-600">
+                    {telefon ? <a href={`tel:${String(telefon).replace(/[^\d+]/g, "")}`} className="inline-flex min-h-11 max-w-full items-center break-all hover:text-blue-600">
                       {telefon}
-                    </a>
+                    </a> : t("defaultTexts.notProvided", "Belirtilmemiş")}
                   </p>
                 </div>
               </div>
               {eposta && (
                 <div className="flex items-start gap-3">
                   <Mail
-                    className="text-gray-500 mt-1 flex-shrink-0"
+                    className="text-gray-500 mt-1 flex-shrink-0" aria-hidden="true"
                     size={20}
                   />
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <p className="text-sm text-gray-500">{t("partnerDetail.email", "E-posta")}</p>
                     <p className="text-lg font-medium text-gray-800">
                       <a
                         href={`mailto:${eposta}`}
-                        className="hover:text-blue-600"
+                        className="inline-flex min-h-11 max-w-full items-center break-all hover:text-blue-600"
                       >
                         {eposta}
                       </a>
@@ -158,9 +168,9 @@ const PartnerDetailsCard = ({ partner, loading, error }) => {
 
           {/* Çalışma Saatleri (Desktop) */}
           {calisma_saati && (
-            <div className="hidden lg:block p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl shadow-md">
+            <div className="min-w-0 hidden lg:block p-4 sm:p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl shadow-md">
               <div className="flex items-center mb-2">
-                <Clock className="text-blue-600 mr-3" size={24} />
+                <Clock className="shrink-0 text-blue-600 mr-3" aria-hidden="true" size={24} />
                 <h2 className="text-xl font-semibold text-gray-800">
                   {t("partnerDetail.workingHours", "Çalışma Saatleri")}
                 </h2>
@@ -170,9 +180,7 @@ const PartnerDetailsCard = ({ partner, loading, error }) => {
           )}
 
           {/* Partners */}
-          <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
-            <PartnersList partners={partners} />
-          </div>
+          <PartnersList partners={otherPartners} />
         </div>
       </div>
     </div>

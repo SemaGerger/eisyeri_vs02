@@ -5,7 +5,10 @@
     "partners": "Eşit İşyerleri",
     "about": "Hakkımızda",
     "contact": "Bize Ulaşın",
-    "logo": "Logomuz"
+    "logo": "Logomuz",
+    "primaryNavigation": "Ana gezinme",
+    "openMenu": "Menüyü aç",
+    "closeMenu": "Menüyü kapat"
   },
   "hero": {
     "title": "Eşit İşyeri",
@@ -41,7 +44,9 @@
   },
   "brand": {
     "title": "Logomuz ve Marka Kimliği",
-    "description": "Eşit İşyeri projemizin logosu, şeffaflık, eşitlik ve güven ilkelerini temsil eder. Logomuz ve marka tescil belgemiz aşağıda yer almaktadır."
+    "description": "Eşit İşyeri projemizin logosu, şeffaflık, eşitlik ve güven ilkelerini temsil eder. Logomuz ve marka tescil belgemiz aşağıda yer almaktadır.",
+    "logoTitle": "Eşit İşyeri Logosu",
+    "certificateTitle": "Marka Tescil Belgesi"
   },
   "contact": {
     "title": "İletişime Geçin",
@@ -56,7 +61,8 @@
     "formTitle": "İletişim Formu",
     "formDesc": "İletişim formumuzu doldurmak için aşağıdaki butona tıklayarak ilgili sayfaya yönlendirileceksiniz.",
     "formButton": "İletişim Formuna Git",
-    "formNotice": "Form doldurma işlemi için harici bir sayfaya yönlendirileceksiniz."
+    "formNotice": "Form doldurma işlemi için harici bir sayfaya yönlendirileceksiniz.",
+    "mapTitle": "Büyükçekmece Belediyesi Haritası"
   },
   "partnersPage": {
     "title": "Eşit İşyerleri",
@@ -88,23 +94,55 @@
     "noName": "İsim yok",
     "noContact": "Yetkili yok",
     "noActivity": "Faaliyet türü yok",
-    "noImage": "Resim Yok"
+    "noImage": "Resim Yok",
+    "notProvided": "Belirtilmemiş"
   },
   "status": {
     "loading": "Yükleniyor...",
     "tryLater": "Lütfen daha sonra tekrar deneyin.",
-    "noData": "Henüz veri bulunmamaktadır."
+    "noData": "Henüz veri bulunmamaktadır.",
+    "serviceConfig": "İşyeri servisi henüz yapılandırılmamış.",
+    "serviceLogin": "İşyeri servisine giriş yapılamadı.",
+    "serviceResponse": "İşyeri servisinden beklenen veri alınamadı.",
+    "serviceTimeout": "İşyeri servisi zamanında yanıt vermedi. Lütfen tekrar deneyin.",
+    "serviceNetwork": "İşyeri servisine erişilemiyor. Lütfen daha sonra tekrar deneyin.",
+    "serviceError": "İşyeri verileri alınamadı. Lütfen daha sonra tekrar deneyin."
   },
   "footer": {
     "department": "Ruhsat ve Denetim Müdürlüğü",
     "municipality": "Büyükçekmece Belediyesi",
     "eMunicipality": "E-Belediye",
     "socialMedia": "Sosyal Medya",
-    "rights": "Tüm Hakları Saklıdır."
+    "rights": "Tüm Hakları Saklıdır.",
+    "socialAccount": "{{name}} hesabı"
   },
   "language": {
     "current": "TR",
     "switch": "EN",
     "label": "Dili Değiştir"
+  },
+  "media": {
+    "close": "Kapat",
+    "previous": "Önceki görsel",
+    "next": "Sonraki görsel",
+    "playVideo": "{{title}} videosunu oynat",
+    "openImage": "{{title}} görselini büyüt",
+    "gallery": "TBB fotoğraf galerisi",
+    "galleryPage": "Galeri sayfası {{number}}",
+    "tbbPhoto": "TBB’de Biz {{number}}",
+    "pauseBackground": "Arka plan videosunu duraklat",
+    "resumeBackground": "Arka plan videosunu oynat",
+    "watchFilm": "Tanıtım videosunu izleyin",
+    "image": "Görsel {{number}}"
+  },
+  "partnerCarousel": {
+    "label": "Eşit işyerleri",
+    "previous": "Önceki işyerleri",
+    "next": "Sonraki işyerleri",
+    "page": "{{page}} / {{count}}. işyeri sayfası"
+  },
+  "notFound": {
+    "title": "Sayfa bulunamadı",
+    "description": "Aradığınız sayfa taşınmış veya kaldırılmış olabilir. Ana sayfadan devam edebilirsiniz."
   }
 }

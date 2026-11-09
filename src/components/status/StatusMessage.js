@@ -1,6 +1,15 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+const serviceErrorKeys = {
+  PARTNERS_CONFIG: "status.serviceConfig",
+  PARTNERS_LOGIN: "status.serviceLogin",
+  PARTNERS_RESPONSE: "status.serviceResponse",
+  PARTNERS_TIMEOUT: "status.serviceTimeout",
+  PARTNERS_NETWORK: "status.serviceNetwork",
+  PARTNERS_SERVICE: "status.serviceError",
+};
+
 const StatusMessage = ({ 
   loading = false, 
   error = null, 
@@ -11,6 +20,12 @@ const StatusMessage = ({
   const { t } = useTranslation();
   const defaultEmptyMsg = t("status.noData", "Henüz hiç veri bulunmamaktadır.");
   const displayEmpty = emptyMessage || defaultEmptyMsg;
+  const errorKey = serviceErrorKeys[error?.code];
+  const errorMessage = errorKey
+    ? t(errorKey)
+    : typeof error === "string"
+      ? error
+      : error?.message || t("status.serviceError");
 
   if (loading) {
     return (
@@ -35,7 +50,7 @@ const StatusMessage = ({
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
         </div>
-        <p className="text-red-500 text-lg font-medium">{error}</p>
+        <p className="text-red-500 text-lg font-medium">{errorMessage}</p>
         {type === "detailed" && (
           <p className="text-gray-500 mt-2">{t("status.tryLater", "Lütfen daha sonra tekrar deneyin.")}</p>
         )}

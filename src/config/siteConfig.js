@@ -1,35 +1,44 @@
-import belediyeLogo from "../assets/logos/bcekmecebldlogo.png";
-import esitIsyeriLogo from "../assets/logos/esitisyeri-kalp-logo.png";
-import esitIsyeriYazisiLogo from "../assets/logos/esitisyeri-yazisi-logo.png";
-import heroVideo from "../assets/videos/esitIsyeriVideo.mp4";
+import heroPoster from "../assets/optimized/hero-poster.webp";
+import heroFullVideo from "../assets/optimized/esit-isyeri-film.mp4";
+import basindabizPoster from "../assets/optimized/now-poster.webp";
+import KrtPoster from "../assets/optimized/krt-poster.webp";
+import Tele1Poster from "../assets/optimized/tele1-poster.webp";
+import HalkTvNisan2023Poster from "../assets/optimized/halk-tv-poster.webp";
+import Tv5Poster from "../assets/optimized/tv5-poster.webp";
+import HalkTVPoster from "../assets/optimized/halk-tv-2-poster.webp";
+import FlashTVPoster from "../assets/optimized/flash-tv-poster.webp";
+import belediyeLogo from "../assets/optimized/belediye-logo.webp";
+import esitIsyeriLogo from "../assets/optimized/site-logo.webp";
+import esitIsyeriYazisiLogo from "../assets/optimized/site-wordmark.webp";
+import heroVideo from "../assets/optimized/hero-loop.mp4";
 
 
-import aboutImage1 from "../assets/images/about/Image1.jpg";
-import aboutImage2 from "../assets/images/about/Image2.jpg";
-import aboutImage3 from "../assets/images/about/Image3.jpg";
+import aboutImage1 from "../assets/optimized/about-1.webp";
+import aboutImage2 from "../assets/optimized/about-2.webp";
+import aboutImage3 from "../assets/optimized/about-3.webp";
 
-import basindabiz from "../assets/videos/press/basindabiz.mp4";
-import FlashTV from "../assets/videos/press/FlashTv.mp4";
-import HalkTV from "../assets/videos/press/HalkTv.mp4";
-import HalkTvNisan2023 from "../assets/videos/press/HalkTv2.mp4";
-import Krt from "../assets/videos/press/KRT.mp4";
-import Tele1 from "../assets/videos/press/Tele1.mp4";
-import Tv5 from "../assets/videos/press/Tv5.mp4";
+import basindabiz from "../assets/optimized/now-news.mp4";
+import FlashTV from "../assets/optimized/flash-tv-news.mp4";
+import HalkTV from "../assets/optimized/halk-tv-2-news.mp4";
+import HalkTvNisan2023 from "../assets/optimized/halk-tv-news.mp4";
+import Krt from "../assets/optimized/krt-news.mp4";
+import Tele1 from "../assets/optimized/tele1-news.mp4";
+import Tv5 from "../assets/optimized/tv5-news.mp4";
 
-/*import foto1 from "../assets/images/partners/1.jpeg";
-import foto2 from "../assets/images/partners/2.jpg";
-import foto3 from "../assets/images/partners/3.jpg";
-import foto4 from "../assets/images/partners/4.jpg";
-import foto5 from "../assets/images/partners/5.jpg";
-import foto6 from "../assets/images/partners/6.jpg";*/
+/*import foto1 from "../assets/optimized/partner-1.webp";
+import foto2 from "../assets/optimized/partner-2.webp";
+import foto3 from "../assets/optimized/partner-3.webp";
+import foto4 from "../assets/optimized/partner-4.webp";
+import foto5 from "../assets/optimized/partner-5.webp";
+import foto6 from "../assets/optimized/partner-6.webp";*/
 
-import president from "../assets/images/HasanAkgun.png";
+import president from "../assets/optimized/president.webp";
 
-import logomuz from "../assets/logos/esitIsyeriLogo.png";
-import tescil from "../assets/images/tescil.png";
+import logomuz from "../assets/optimized/esit-isyeri-logo.webp";
+import tescil from "../assets/optimized/tescil.webp";
 
-import logo from "../assets/logos/esitisyeri-kalp-logo.png";
-import logoYazisi from "../assets/logos/esitisyeri-yazisi-logo.png";
+import logo from "../assets/optimized/site-logo.webp";
+import logoYazisi from "../assets/optimized/site-wordmark.webp";
 
 
 
@@ -61,6 +70,8 @@ const siteConfig = {
     CTA2TEXT: "Bücep Grubuna Katılın",
     CTA2URL: "https://bucep.framer.website/",
     HERO_VIDEO: heroVideo,
+    HERO_POSTER: heroPoster,
+    HERO_FULL_VIDEO: heroFullVideo,
   },
 
 
@@ -219,13 +230,13 @@ export default siteConfig;
 
 
 export const pressData = [
-  { id: 1, title: "Now", video: basindabiz },
-  { id: 2, title: "KRT", video: Krt },
-  { id: 3, title: "Tele1", video: Tele1 },
-  { id: 4, title: "Halk TV", video: HalkTvNisan2023 },
-  { id: 5, title: "TV5", video: Tv5 },
-  { id: 6, title: "Halk TV 2", video: HalkTV },
-  { id: 7, title: "FlashTV", video: FlashTV },
+  { id: 1, title: "Now", video: basindabiz, poster: basindabizPoster },
+  { id: 2, title: "KRT", video: Krt, poster: KrtPoster },
+  { id: 3, title: "Tele1", video: Tele1, poster: Tele1Poster },
+  { id: 4, title: "Halk TV", video: HalkTvNisan2023, poster: HalkTvNisan2023Poster },
+  { id: 5, title: "TV5", video: Tv5, poster: Tv5Poster },
+  { id: 6, title: "Halk TV 2", video: HalkTV, poster: HalkTVPoster },
+  { id: 7, title: "FlashTV", video: FlashTV, poster: FlashTVPoster },
 ];
 
 

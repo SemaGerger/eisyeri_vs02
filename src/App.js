@@ -8,11 +8,13 @@ import AboutPresident from "./pages/AboutPresident";
 import Logomuz from "./pages/Logomuz";
 import PartnerDetailsPage from "./pages/partners/PartnerDetailsPage";
 import FormPage from "./pages/FormPage";
-import TestPage from "./test/TestPage";
+import RouteEffects from "./components/RouteEffects";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
     <Router>
+      <RouteEffects />
       <Routes>
 
         <Route path="/" element={<Home />} />
@@ -32,8 +34,8 @@ export default function App() {
         <Route path="/iletisim" element={<Contact />} />
         <Route path="/logomuz" element={<Logomuz />} />
         <Route path="/form" element={<FormPage />} />
+        <Route path="*" element={<NotFound />} />
 
-        <Route path="/test" element={<TestPage />} />
 
 
       </Routes>

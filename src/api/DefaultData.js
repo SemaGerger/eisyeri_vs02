@@ -1,40 +1,48 @@
+import basindabizPoster from "../assets/optimized/now-poster.webp";
+import KrtPoster from "../assets/optimized/krt-poster.webp";
+import Tele1Poster from "../assets/optimized/tele1-poster.webp";
+import HalkTvNisan2023Poster from "../assets/optimized/halk-tv-poster.webp";
+import Tv5Poster from "../assets/optimized/tv5-poster.webp";
+import HalkTVPoster from "../assets/optimized/halk-tv-2-poster.webp";
+import FlashTVPoster from "../assets/optimized/flash-tv-poster.webp";
+import video45likPoster from "../assets/optimized/45lik-poster.webp";
 
-import basindabiz from "../assets/videos/press/basindabiz.mp4";
-import FlashTV from "../assets/videos/press/FlashTv.mp4";
-import HalkTV from "../assets/videos/press/HalkTv.mp4";
-import HalkTvNisan2023 from "../assets/videos/press/HalkTv2.mp4";
-import Krt from "../assets/videos/press/KRT.mp4";
-import Tele1 from "../assets/videos/press/Tele1.mp4";
-import Tv5 from "../assets/videos/press/Tv5.mp4";
-import video45lik from "../assets/videos/press/45lik.mp4";
+import basindabiz from "../assets/optimized/now-news.mp4";
+import FlashTV from "../assets/optimized/flash-tv-news.mp4";
+import HalkTV from "../assets/optimized/halk-tv-2-news.mp4";
+import HalkTvNisan2023 from "../assets/optimized/halk-tv-news.mp4";
+import Krt from "../assets/optimized/krt-news.mp4";
+import Tele1 from "../assets/optimized/tele1-news.mp4";
+import Tv5 from "../assets/optimized/tv5-news.mp4";
+import video45lik from "../assets/optimized/45lik-news.mp4";
 
-import pressPhoto1 from "../assets/images/press/esitisyeri_press1.jpeg";
-import pressPhoto2 from "../assets/images/press/esitisyeri_press2.jpeg";
-import pressPhoto3 from "../assets/images/press/esitisyeri_press3.jpeg";
+import pressPhoto1 from "../assets/optimized/press-photo-1.webp";
+import pressPhoto2 from "../assets/optimized/press-photo-2.webp";
+import pressPhoto3 from "../assets/optimized/press-photo-3.webp";
 
-import foto1 from "../assets/images/partners/1.jpeg";
-import foto2 from "../assets/images/partners/2.jpg";
-import foto3 from "../assets/images/partners/3.jpg";
-import foto4 from "../assets/images/partners/4.jpg";
-import foto5 from "../assets/images/partners/5.jpg";
-import foto6 from "../assets/images/partners/6.jpg";
+import foto1 from "../assets/optimized/partner-1.webp";
+import foto2 from "../assets/optimized/partner-2.webp";
+import foto3 from "../assets/optimized/partner-3.webp";
+import foto4 from "../assets/optimized/partner-4.webp";
+import foto5 from "../assets/optimized/partner-5.webp";
+import foto6 from "../assets/optimized/partner-6.webp";
 
-import Image1 from "../assets/images/about/Image1.jpg";
-import Image2 from "../assets/images/about/Image2.jpg";
-import Image3 from "../assets/images/about/Image3.jpg";
+import Image1 from "../assets/optimized/about-1.webp";
+import Image2 from "../assets/optimized/about-2.webp";
+import Image3 from "../assets/optimized/about-3.webp";
 
-import president from "../assets/images/HasanAkgun.png";
+import president from "../assets/optimized/president.webp";
 
-import logomuz from "../assets/logos/esitIsyeriLogo.png";
-import tescil from "../assets/images/tescil.png";
+import logomuz from "../assets/optimized/esit-isyeri-logo.webp";
+import tescil from "../assets/optimized/tescil.webp";
 
 /* TBB Türkiye Belediyeler Birliği */
-import photo1 from "../assets/images/TBB/photo1.jpeg";
-import photo2 from "../assets/images/TBB/photo2.jpeg";
-import photo3 from "../assets/images/TBB/photo3.jpeg";
-import photo4 from "../assets/images/TBB/photo4.jpeg";
-import photo5 from "../assets/images/TBB/photo5.jpeg";
-import photo6 from "../assets/images/TBB/photo6.jpeg";
+import photo1 from "../assets/optimized/tbb-photo-1.webp";
+import photo2 from "../assets/optimized/tbb-photo-2.webp";
+import photo3 from "../assets/optimized/tbb-photo-3.webp";
+import photo4 from "../assets/optimized/tbb-photo-4.webp";
+import photo5 from "../assets/optimized/tbb-photo-5.webp";
+import photo6 from "../assets/optimized/tbb-photo-6.webp";
 
 export const partnersData = [
   { id: 1, title: "ERSE MANTIEVİ EV YEMEKLERİ GIDA SANAYİ VE TİCARET LİMİTED ŞİRKETİ", image: foto1 },
@@ -77,14 +85,14 @@ export const servicesData = [
 ];
 
 export const pressData = [
-  { id: 1, title: "Now", video: basindabiz},
-  { id: 2, title: "KRT", video: Krt},
-  { id: 3, title: "Tele1", video: Tele1},
-  { id: 4, title: "Halk TV", video: HalkTvNisan2023},
-  { id: 5, title: "TV5", video: Tv5},
-  { id: 6, title: "Halk TV 2", video: HalkTV},
-  { id: 7, title: "FlashTV", video: FlashTV},
-  { id: 8, title: "video45lik", video: video45lik},
+  { id: 1, title: "Now", video: basindabiz, poster: basindabizPoster},
+  { id: 2, title: "KRT", video: Krt, poster: KrtPoster},
+  { id: 3, title: "Tele1", video: Tele1, poster: Tele1Poster},
+  { id: 4, title: "Halk TV", video: HalkTvNisan2023, poster: HalkTvNisan2023Poster},
+  { id: 5, title: "TV5", video: Tv5, poster: Tv5Poster},
+  { id: 6, title: "Halk TV 2", video: HalkTV, poster: HalkTVPoster},
+  { id: 7, title: "FlashTV", video: FlashTV, poster: FlashTVPoster},
+  { id: 8, title: "video45lik", video: video45lik, poster: video45likPoster},
 ];
 
 export const pressPhotos = [

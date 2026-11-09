@@ -23,10 +23,12 @@ const Logomuz = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {logo.map((item) => (
             <div key={item.id} className="border rounded-xl shadow p-4 text-center">
-              <h2 className="text-lg font-semibold mb-4">{item.title}</h2>
+              <h2 className="text-lg font-semibold mb-4">{t(item.id === 1 ? "brand.logoTitle" : "brand.certificateTitle")}</h2>
               <img
+                  loading="lazy"
+                  decoding="async"
                 src={item.image}
-                alt={item.title || "Logo"}
+                alt={t(item.id === 1 ? "brand.logoTitle" : "brand.certificateTitle")}
                 className="mx-auto max-h-64 object-contain"
               />
             </div>

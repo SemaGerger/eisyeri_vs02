@@ -16,7 +16,7 @@ const PartnersList = ({ partners }) => {
 
   if (!partners || partners.length === 0) {
     return (
-      <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+      <div className="min-w-0 bg-white rounded-2xl p-4 sm:p-6 shadow-md border border-gray-100">
         <h2 className="text-2xl font-semibold text-gray-800 mb-2">{title}</h2>
         <p className="text-gray-500 mb-6">{subtitle}</p>
         <div className="text-center py-8">
@@ -29,19 +29,19 @@ const PartnersList = ({ partners }) => {
 
   return ( 
      /* in Partner */
-    <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
-      <div className="flex justify-between items-center mb-6">
-        <div>
+    <div className="min-w-0 bg-white rounded-2xl p-4 sm:p-6 shadow-md border border-gray-100">
+      <div className="flex min-w-0 flex-col gap-3 mb-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="min-w-0 break-words">
           <h2 className="text-2xl font-semibold text-gray-800">{title}</h2>
           <p className="text-gray-500">{subtitle}</p>
         </div>
         <Link
           to={viewAllLink}
-          className="flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors"
+          className="inline-flex min-h-11 max-w-full shrink-0 self-start items-center gap-1 break-words text-blue-600 hover:text-blue-800 font-medium transition-colors sm:self-center"
         >
           {viewAllText}
 
-          <ArrowRight size={18} className="ml-1" />
+          <ArrowRight size={18} className="shrink-0" aria-hidden="true" />
         </Link>
       </div>
 

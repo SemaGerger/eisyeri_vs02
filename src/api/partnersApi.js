@@ -1,117 +1,128 @@
 import axios from "axios";
 
-// Axios örneği oluşturabiliriz (opsiyonel, baseURL vs için)
 const api = axios.create({
-  baseURL: "/api",
-  timeout: 50000, // 50 saniye
+  baseURL: "https://keos.bcekmece.bel.tr/BELNET/",
+  timeout: 50000,
+  // Oturum kimliği sorgu parametresindedir; CORS wildcard ile çerez gönderilmez.
+  withCredentials: false,
 });
 
-/**
- * Tüm partnerleri listele
- * @param {number} page - Sayfa numarası
- * @param {number} limit - Sayfa başına öğe sayısı
- * @returns {Array} Partner dizisi
- */
-export const getPartners = async (page = 1, limit = 5) => {
-  try {
-    const response = await api.get("/partners", {
-      params: { page, limit },
-    });
+const SESSION_TTL = 15 * 60 * 1000;
+const DATA_TTL = 60 * 1000;
+const COLUMN_PREFIX = "vw_esit_isyeri.";
+const ID_COLUMN = `${COLUMN_PREFIX}objectid`;
 
-    const data = response.data;
+let session = null;
+let loginRequest = null;
+let partnersRequest = null;
+let cachedRows = null;
+let cacheExpiry = 0;
 
-    // API beklenen formatta değilse boş dizi dön
-    if (!data || !Array.isArray(data.rows)) {
-      console.warn("⚠️ API'den beklenen format gelmedi:", data);
-      return [];
+class PartnerServiceError extends Error {
+  constructor(code, message) {
+    super(message);
+    this.name = "PartnerServiceError";
+    this.code = code;
+  }
+}
+
+async function login() {
+  if (session && session.expiresAt > Date.now()) return session.id;
+  if (!loginRequest) {
+    loginRequest = (async () => {
+      const username = process.env.REACT_APP_API_USERNAME;
+      const password = process.env.REACT_APP_API_PASSWORD;
+      if (!username || !password) {
+        throw new PartnerServiceError("PARTNERS_CONFIG", "İşyeri servisi giriş bilgileri yapılandırılmamış.");
+      }
+      const { data } = await api.get("LogonService.asmx/Login", {
+        params: { username, password },
+        responseType: "text",
+      });
+      const xml = new DOMParser().parseFromString(data, "application/xml");
+      const root = xml.documentElement;
+      const id = root?.localName === "string" ? root.textContent?.trim() : "";
+      if (xml.querySelector("parsererror") || !id) {
+        throw new PartnerServiceError("PARTNERS_LOGIN", "İşyeri servisine giriş yapılamadı.");
+      }
+      session = { id, expiresAt: Date.now() + SESSION_TTL };
+      return id;
+    })().finally(() => { loginRequest = null; });
+  }
+  return loginRequest;
+}
+
+async function queryRows() {
+  // Süresi biten oturumda bir kez yeniden giriş yapılır; sınırsız tekrar yoktur.
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    const id = await login();
+    try {
+      const { data } = await api.get("gisapi/query/query", {
+        params: { queryname: "vw_esit_isyeri.Sorgusu", sessionid: id },
+      });
+      const rows = data?.Rows ?? data?.rows;
+      if (!Array.isArray(rows) || rows.some((row) => !row || !Array.isArray(row.Cells ?? row.cells))) {
+        throw new PartnerServiceError("PARTNERS_RESPONSE", "İşyeri servisinden beklenen veri alınamadı.");
+      }
+      // Liste bileşenlerinin kullandığı Cells/DisplayText sözleşmesini koru.
+      return rows.map((row) => row.Cells ? row : { ...row, Cells: row.cells });
+    } catch (error) {
+      if (error.response?.status === 401) {
+        if (session?.id === id) session = null;
+        if (attempt === 0) continue;
+      }
+      throw error;
     }
-
-    return data.rows;
-  } catch (err) {
-    handleAxiosError(err);
-    return [];
   }
-};
+}
 
-/**
- * Tek partner detayı al
- * @param {number|string} id - Partner ID
- * @returns {Object|null} Partner objesi veya null
- */
-
-export const getPartner = async (id) => {
-  try {
-    const response = await api.get(`/partners/${id}`);
-    return response.data || null;
-  } catch (err) {
-    handleAxiosError(err);
-    return null;
-  }
-};
-
-
-/**
- * Axios hatalarını merkezi şekilde yönet
- * @param {any} err
- */
-const handleAxiosError = (err) => {
-  if (err.response) {
-    console.error(
-      `API hatası (status ${err.response.status}):`,
-      err.response.data
-    );
-  } else if (err.request) {
-    console.error("API isteği yapıldı ama cevap gelmedi:", err.message);
-  } else {
-    console.error("Axios hatası:", err.message);
-  }
-};
-
-
-
-/*import axios from "axios";
-
-export const getPartners = async (page = 1, limit = 5) => {
-  try {
-    const res = await axios.get(`/api/partners?page=${page}&limit=${limit}`, {
-      timeout: 50000,
-      withCredentials: true,
-    });
-    return res.data.rows || [];
-  } catch (err) {
-    console.error("Partner verisi çekilemedi:", err);
-    return [];
-  }
-};
-
-/*export const getPartners = async (page = 1, limit = 5) => {
-  try {
-    // URL oluştur
-    const url = `/api/partners?page=${page}&limit=${limit}`;
-
-    // fetch isteği at
-    const controller = new AbortController(); // timeout için
-    const timeout = setTimeout(() => controller.abort(), 50000); // 50 saniye
-
-    const res = await fetch(url, {
-      method: "GET",
-      credentials: "include", // withCredentials: true karşılığı
-      signal: controller.signal, // timeout çalışsın diye
-    });
-
-    clearTimeout(timeout); // başarılı olursa timeout'u temizle
-
-    // response'un body kısmını JSON'a çevir
-    if (!res.ok) {
-      // 200 dışında bir durumsa hata fırlat
-      throw new Error(`HTTP error! status: ${res.status}`);
+function serviceError(error) {
+  if (error instanceof PartnerServiceError) return error;
+  if (axios.isAxiosError(error)) {
+    if (["ECONNABORTED", "ETIMEDOUT"].includes(error.code)) {
+      return new PartnerServiceError("PARTNERS_TIMEOUT", "İşyeri servisi zamanında yanıt vermedi. Lütfen tekrar deneyin.");
     }
-
-    const data = await res.json();
-    return data.rows || [];
-  } catch (err) {
-    console.error("Partner verisi çekilemedi:", err);
-    return [];
+    if (!error.response) {
+      return new PartnerServiceError("PARTNERS_NETWORK", "İşyeri servisine erişilemiyor. Lütfen daha sonra tekrar deneyin.");
+    }
   }
-};
-*/
+  // Axios config/URL/yanıt içeriğini (giriş ve oturum verilerini) dışarı taşıma.
+  return new PartnerServiceError("PARTNERS_SERVICE", "İşyeri verileri alınamadı. Lütfen daha sonra tekrar deneyin.");
+}
+
+async function getAllRows() {
+  if (cachedRows !== null && cacheExpiry > Date.now()) return cachedRows;
+  if (!partnersRequest) {
+    partnersRequest = queryRows()
+      .then((rows) => {
+        cachedRows = rows;
+        cacheExpiry = Date.now() + DATA_TTL;
+        return rows;
+      })
+      .catch((error) => { throw serviceError(error); })
+      .finally(() => { partnersRequest = null; });
+  }
+  return partnersRequest;
+}
+
+export async function getPartners(page = 1, limit = 5) {
+  const rows = await getAllRows();
+  const pageNumber = Math.max(1, parseInt(page, 10) || 1);
+  const pageSize = Math.max(1, parseInt(limit, 10) || 5);
+  const start = (pageNumber - 1) * pageSize;
+  return rows.slice(start, start + pageSize);
+}
+
+export async function getPartner(id) {
+  const numericId = Number(id);
+  if (!Number.isFinite(numericId)) return null;
+  const rows = await getAllRows();
+  const row = rows.find((item) => item.Cells.some((cell) =>
+    cell?.ColumnName === ID_COLUMN && Number(cell.Value) === numericId
+  ));
+  if (!row) return null;
+  // Eski /api/partners/:id endpoint'i ColumnName önekini kaldırıp Value döndürüyordu.
+  return Object.fromEntries(row.Cells
+    .filter((cell) => typeof cell?.ColumnName === "string")
+    .map((cell) => [cell.ColumnName.replace(/^vw_esit_isyeri\./, ""), cell.Value]));
+}

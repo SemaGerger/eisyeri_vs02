@@ -3,8 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Header from "../layouts/main/header/Header";
 import Footer from "../layouts/main/Footer";
-import CTAButton1 from "../components/button/CTAButton1";
-import CTAButton2 from "../components/button/CTAButton2";
+import FixedCTABar from "../components/button/FixedCTABar";
 import siteConfig from "../config/siteConfig";
 
 const Layout = ({ children }) => {
@@ -26,14 +25,10 @@ const Layout = ({ children }) => {
       
       {/* Fixed CTA button */}
       {showCTA && (
-        <div className="fixed bottom-6 left-4 right-4 flex justify-between z-50 md:left-6 md:right-6">
-          <CTAButton2 className="cursor-pointer" isFixed={true} href={siteConfig.hero.CTA2URL}>
-            {cta2Text}
-          </CTAButton2>
-          <CTAButton1 className="cursor-pointer" isFixed={true} href={siteConfig.hero.CTA1URL}>
-            {cta1Text}
-          </CTAButton1>
-        </div>
+        <FixedCTABar
+          secondary={{ href: siteConfig.hero.CTA2URL, label: cta2Text }}
+          primary={{ href: siteConfig.hero.CTA1URL, label: cta1Text }}
+        />
       )}
       
       <Footer />

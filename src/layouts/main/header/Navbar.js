@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import CTAButton1 from "../../../components/button/CTAButton1";
@@ -7,130 +7,104 @@ import siteConfig from "../../../config/siteConfig";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuToggleRef = useRef(null);
+  const mobileMenuId = useId();
   const { t } = useTranslation();
 
-  const handleLinkClick = () => {
-    setIsMobileMenuOpen(false);
-  };
+  useEffect(() => {
+    if (!isMobileMenuOpen) return undefined;
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setIsMobileMenuOpen(false);
+        menuToggleRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [isMobileMenuOpen]);
+
+  const navigationLabel = t("nav.primaryNavigation", "Ana gezinme");
+  const linkLabel = (link) => link.key ? t(`nav.${link.key}`, link.name) : link.name;
+  const municipalityLogo = (
+    <a
+      href={siteConfig.belediyeUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex min-h-[44px] shrink-0 items-center rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+    >
+      <img
+        src={siteConfig.assets.logos.belediye.src}
+        alt={siteConfig.assets.logos.belediye.alt}
+        className="h-10 w-auto max-w-[200px] object-contain 2xl:h-12 2xl:max-w-[240px]"
+      />
+    </a>
+  );
 
   return (
     <>
-      {/* Desktop Navbar */}
-      <div className="hidden xl:flex items-center space-x-6">
-        <nav className="flex flex-row items-center space-x-8">
+      <div className="hidden shrink-0 items-center gap-4 xl:flex 2xl:gap-6">
+        <nav aria-label={navigationLabel} className="flex items-center gap-4 2xl:gap-6">
           {siteConfig.navLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
-              className="relative text-gray-700 hover:text-blue-600 font-medium whitespace-nowrap duration-200"
+              className="inline-flex min-h-[44px] items-center rounded py-2 text-sm font-medium whitespace-nowrap text-gray-700 hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 2xl:text-base"
             >
-              {link.key ? t(`nav.${link.key}`, link.name) : link.name}
+              {linkLabel(link)}
             </Link>
           ))}
         </nav>
-
-        {/* Görseldeki gibi Kapsül / Switch TR-EN Dil Butonu */}
         <LanguageToggle />
-
-        {/* Belediye Logo */}
-        <a
-          href={siteConfig.belediyeUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center space-x-2"
-        >
-          <img
-            src={siteConfig.assets.logos.belediye.src}
-            alt={siteConfig.assets.logos.belediye.alt}
-            className="h-12"
-          />
-        </a>
+        {municipalityLogo}
       </div>
 
-      {/* Hamburger & Mobile Language Switch */}
-      <div className="xl:hidden flex items-center space-x-3">
+      <div className="flex shrink-0 items-center gap-2 xl:hidden">
         <LanguageToggle />
-
         <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="text-gray-700 focus:outline-none p-1"
-          aria-label="Toggle Menu"
+          ref={menuToggleRef}
+          type="button"
+          onClick={() => setIsMobileMenuOpen((open) => !open)}
+          className="flex h-11 w-11 items-center justify-center rounded text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+          aria-label={isMobileMenuOpen ? t("nav.closeMenu", "Menüyü kapat") : t("nav.openMenu", "Menüyü aç")}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls={mobileMenuId}
         >
-          {isMobileMenuOpen ? (
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          ) : (
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          )}
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+            />
+          </svg>
         </button>
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      {isMobileMenuOpen && (
-        <div className="absolute top-full left-0 w-full bg-white shadow-lg px-6 py-6 flex flex-col items-start space-y-4 xl:hidden animate-fadeIn z-40">
-          <nav className="flex flex-col space-y-4 items-start pl-4 w-full">
-            {siteConfig.navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                onClick={handleLinkClick}
-                className="text-gray-700 font-medium whitespace-nowrap hover:text-blue-600 transition duration-200"
-              >
-                {link.key ? t(`nav.${link.key}`, link.name) : link.name}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Divider */}
-          <div className="w-full h-px bg-gray-200"></div>
-
-          {/* CTA Button */}
-          <div className="w-full">
-            <CTAButton1 href={siteConfig.hero.CTA1URL} className="w-full justify-center">
-              {t("hero.cta1", siteConfig.hero.CTA1TEXT)}
-            </CTAButton1>
-          </div>
-
-          {/* Belediye Logo */}
-          <div className="flex justify-center w-full pt-4 border-t border-gray-100">
-            <a
-              href={siteConfig.belediyeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center space-x-2"
+      <div
+        id={mobileMenuId}
+        hidden={!isMobileMenuOpen}
+        className={`${isMobileMenuOpen ? "flex" : "hidden"} absolute top-full left-0 z-50 w-full max-h-[calc(100vh-5rem)] flex-col gap-3 overflow-y-auto overscroll-contain bg-white px-4 py-4 shadow-lg supports-[height:100dvh]:max-h-[calc(100dvh-5rem)] xl:hidden`}
+      >
+        <nav aria-label={navigationLabel} className="flex w-full flex-col">
+          {siteConfig.navLinks.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="inline-flex min-h-[44px] items-center rounded px-3 py-2 font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
             >
-              <img
-                src={siteConfig.assets.logos.belediye.src}
-                alt={siteConfig.assets.logos.belediye.alt}
-                className="h-12"
-              />
-            </a>
-          </div>
+              {linkLabel(link)}
+            </Link>
+          ))}
+        </nav>
+        <div className="h-px w-full shrink-0 bg-gray-200" />
+        <CTAButton1 href={siteConfig.hero.CTA1URL} className="w-full">
+          {t("hero.cta1", siteConfig.hero.CTA1TEXT)}
+        </CTAButton1>
+        <div className="flex w-full justify-center border-t border-gray-100 pt-3 pb-[env(safe-area-inset-bottom,0px)]">
+          {municipalityLogo}
         </div>
-      )}
+      </div>
     </>
   );
 };

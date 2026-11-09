@@ -1,36 +1,34 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import siteConfig from "../../config/siteConfig";
+import { useTranslation } from "react-i18next";
+import SampleImage from "../../assets/optimized/site-logo.webp";
 
-const StoryCard = ({ id, name, image, extraInfo, index }) => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-   navigate(`/detay/${id}`, { state: { image } });
-  };
+const StoryCard = ({ name, image, activity }) => {
+  const { t } = useTranslation();
+  const displayName = name || t("defaultTexts.noName", "İsim yok");
 
   return (
-    <div
-      onClick={handleClick}
-      className="flex flex-col items-center cursor-pointer w-28 md:w-32 shrink-0
-                 transform transition-transform duration-500 hover:scale-110 hover:-translate-y-2"
-    >
-      <div className="relative w-28 h-28 md:w-48 md:h-48 mb-4">
-        {image ? (
-          <img
-            src={image}
-            alt={name || siteConfig.defaultTexts.partnerName} 
-            className="w-full h-full object-cover rounded-full border-4 border-blue relative z-10 shadow-lg"
-          />
-        ) : (
-          <div className="w-full h-full bg-gray-200 rounded-full flex items-center justify-center text-gray-500 relative z-10">
-            Yok
-          </div>
-        )}
+    <div className="flex h-full w-full flex-col items-center px-2 transition-transform duration-200 group-hover:-translate-y-1 motion-reduce:transform-none">
+      <div className="relative mb-4 h-28 w-28 shrink-0 md:h-48 md:w-48">
+        <img
+          src={image || SampleImage}
+          alt=""
+          width="192"
+          height="192"
+          loading="lazy"
+          decoding="async"
+          draggable={false}
+          onError={(event) => {
+            if (event.currentTarget.getAttribute("src") !== SampleImage) event.currentTarget.src = SampleImage;
+          }}
+          className="h-full w-full rounded-full border-4 border-blue-100 object-cover shadow-lg"
+        />
       </div>
-
-      {name && (<h3 className="text-center text-sm md:text-base font-semibold text-gray-800">{name}</h3>)}
-      {extraInfo && (<p className="text-center text-xs md:text-sm text-gray-600">{extraInfo.split("Tür:")[1]?.trim()}</p>)}
+      <h3 className="min-h-[2.5rem] w-full line-clamp-2 break-words text-center text-sm font-semibold leading-5 text-gray-800 md:min-h-[3rem] md:text-base md:leading-6">
+        {displayName}
+      </h3>
+      <p className="mt-1 min-h-[2rem] w-full line-clamp-2 break-words text-center text-xs leading-4 text-gray-600 md:min-h-[2.5rem] md:text-sm md:leading-5">
+        {activity || ""}
+      </p>
     </div>
   );
 };
